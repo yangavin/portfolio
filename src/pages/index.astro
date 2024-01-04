@@ -1,5 +1,5 @@
 ---
-
+import JokeOverlay from "../JokeOverlay.astro";
 ---
 
 <html lang="en">
@@ -7,9 +7,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap"
+      rel="stylesheet"
+    />
     <title>Gavin Yan</title>
   </head>
   <body>
+    <JokeOverlay />
     <h1>Astro</h1>
   </body>
 </html>
