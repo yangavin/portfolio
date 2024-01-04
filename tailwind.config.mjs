@@ -6,6 +6,16 @@ export default {
       fontFamily: {
         "anonymous-pro": ["Anonymous Pro"]
       },
+      animation: {
+        "slide-out": "slideOut 1.5s ease-in-out 1 forwards",
+      },
+      keyframes:{
+        slideOut: {
+          "0%": {top: 0},
+          "80%": {opacity: 0},
+          "100%": {top: "100%"}
+        },
+      }
     },
   },
   plugins: [],
