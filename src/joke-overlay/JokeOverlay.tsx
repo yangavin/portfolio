@@ -12,9 +12,13 @@ function JokeOverlay() {
   );
   return (
     <div className="fixed flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 font-anonymous-pro lg:gap-20">
-      <JokeQuestion key={question}>{question}</JokeQuestion>
+      <JokeQuestion setDone={setQuestionDone} key={question}>
+        {question}
+      </JokeQuestion>
       <hr className="w-9/12 border-black" />
-      <JokePunchline key={punchline}>{punchline}</JokePunchline>
+      <JokePunchline start={questionDone} key={punchline}>
+        {punchline}
+      </JokePunchline>
 
       {/* For testing purposes */}
       <button
