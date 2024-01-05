@@ -16,7 +16,7 @@ function JokeOverlay() {
         {question}
       </JokeQuestion>
       <hr className="w-9/12 border-black" />
-      <JokePunchline start={questionDone} key={punchline}>
+      <JokePunchline showCursor={questionDone} key={punchline}>
         {punchline}
       </JokePunchline>
 

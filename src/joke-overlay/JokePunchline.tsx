@@ -2,30 +2,43 @@ import { useEffect, useState } from "react";
 
 function JokePunchline({
   children,
-  start,
+  showCursor,
 }: {
   children: string;
-  start: boolean;
+  showCursor: boolean;
   key: string;
 }) {
   const [index, setIndex] = useState(0);
+  const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
 
   useEffect(() => {
-    if (index < children.length && start) {
-      const timeout = setTimeout(() => {
+    if (showCursor) {
+      const startTimer = setTimeout(() => setStart(true), 3000);
+      return () => clearTimeout(startTimer);
+    }
+  }, [showCursor]);
+
+  useEffect(() => {
+    if (start && index < children.length) {
+      const nextCharTimer = setTimeout(() => {
         setIndex((oldIndex) => oldIndex + 1);
       }, 50);
-      return () => clearTimeout(timeout);
+      return () => clearTimeout(nextCharTimer);
     }
   }, [start, index]);
-  return start ? (
+
+  return (
     <h2 className="text-center md:text-2xl lg:text-3xl">
-      <span>{displayedPunchline}</span>
-      <span>{index < children.length && "|"}</span>
+      {showCursor && (
+        <>
+          <span>{displayedPunchline}</span>
+          <span className="animate-pulse">
+            {index < children.length && "|"}
+          </span>
+        </>
+      )}
     </h2>
-  ) : (
-    <h2 className="text-center md:text-2xl lg:text-3xl"></h2>
   );
 }
 
