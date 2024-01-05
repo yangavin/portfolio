@@ -33,9 +33,7 @@ function JokePunchline({
       {showCursor && (
         <>
           <span>{displayedPunchline}</span>
-          <span className="animate-pulse">
-            {index < children.length && "|"}
-          </span>
+          <span className="animate-pulse">|</span>
         </>
       )}
     </h2>
