@@ -1,16 +1,18 @@
 import { useState } from "react";
 import JokeQuestion from "./JokeQuestion";
+import JokePunchline from "./JokePunchline";
 
 function JokeOverlay() {
   const [question, setQuestion] = useState(
     "Why couldn't web developers find their room in a hotel?",
   );
+  const [questionDone, setQuestionDone] = useState(false);
   const punchline = "Because their room number is 404";
   return (
     <div className="fixed flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 font-anonymous-pro lg:gap-20">
       <JokeQuestion question={question} key={question} />
       <hr className="w-9/12 border-black" />
-      <h2 className="text-center md:text-2xl lg:text-3xl"></h2>
+      <JokePunchline punchline={punchline} key={punchline}></JokePunchline>
 
       {/* For testing purposes */}
       <button
