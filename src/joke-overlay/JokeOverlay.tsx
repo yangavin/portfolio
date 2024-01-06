@@ -26,12 +26,15 @@ function JokeOverlay() {
           if (
             question ===
             "Why couldn't web developers find their room in a hotel?"
-          )
+          ) {
             setQuestion("hello world");
-          else
+            setPunchline("Hello there!!");
+          } else {
             setQuestion(
               "Why couldn't web developers find their room in a hotel?",
             );
+            setPunchline("Because their room number is 404");
+          }
         }}
       >
         Change Joke Question
