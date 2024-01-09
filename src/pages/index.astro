@@ -1,5 +1,5 @@
 ---
-import JokeOverlay from "../joke-overlay/JokeOverlay";
+import Title from "../sections/title.astro";
 ---
 
 <html lang="en">
@@ -15,8 +15,15 @@ import JokeOverlay from "../joke-overlay/JokeOverlay";
     />
     <title>Gavin Yan</title>
   </head>
-  <body class="bg-orange-100">
-    <JokeOverlay client:load />
-    <h1>Astro</h1>
+  <body class="overflow-x-hidden bg-orange-100 text-neutral-600">
+    <!-- <JokeOverlay client:load /> -->
+    <div
+      class="relative -right-20 -top-6 h-16 w-full rotate-12 bg-blue-300 md:-top-16 md:h-24 lg:-top-36 lg:h-48"
+    >
+    </div>
+    <Title />
+    <hr
+      class="-mx-10 my-8 -rotate-6 border-black bg-black lg:my-32 lg:border-2"
+    />
   </body>
 </html>

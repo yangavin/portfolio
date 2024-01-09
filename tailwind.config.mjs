@@ -4,18 +4,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "anonymous-pro": ["Anonymous Pro"]
+        "anonymous-pro": ["Anonymous Pro"],
       },
       animation: {
         "slide-out": "slideOut 1.5s ease-in-out 1 forwards",
       },
-      keyframes:{
+      keyframes: {
         slideOut: {
-          "0%": {top: 0},
-          "80%": {opacity: 0},
-          "100%": {top: "100%"}
+          "0%": { top: 0 },
+          "80%": { opacity: 0 },
+          "100%": { top: "100%" },
         },
-      }
+      },
     },
   },
   plugins: [],
