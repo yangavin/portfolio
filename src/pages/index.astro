@@ -1,5 +1,6 @@
 ---
 import Title from "../sections/title.astro";
+import AboutMe from "../sections/about-me.astro";
 ---
 
 <html lang="en">
@@ -20,6 +21,9 @@ import Title from "../sections/title.astro";
     <!-- <JokeOverlay client:load /> -->
     <img class="ml-auto h-[15vw] w-3/5" src="blue-box.svg" alt="Blue Box" />
     <Title />
-    <hr class="my-8 -rotate-6 border-black bg-black lg:my-32 lg:border-2" />
+    <hr class="-rotate-6 border-black bg-black md:border-2" />
+    <main class="mt-12 px-8 md:mt-28 lg:mt-48">
+      <AboutMe />
+    </main>
   </body>
 </html>
