@@ -1,30 +1,24 @@
+---
+import { contentfulClient } from "../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
+type paragraphs = {
+  contentTypeId: "paragraphs";
+  fields: {
+    content: EntryFieldTypes.RichText;
+  };
+};
+
+const content = await contentfulClient.getEntry<paragraphs>(
+  "3XF919i826vVfAsg8IXaZ6",
+);
+---
+
 <div>
   <h1 class="mb-10 text-xl md:mb-20 md:pl-10 md:text-5xl">About Me</h1>
-  <div class="m-auto w-[65ch] text-xs md:text-2xl">
-    <p>
-      Hi! I am a CS student at Queen's University who's currently navigating the
-      complex world of web development and shedding tears over the chaotic
-      JavaScript ecosystem (seriously though why is it like this 😭). When I'm
-      not busy coding, you'll find me indulging in my love for philosophy,
-      psychology, music, and personal development!
-    </p>
-    <br />
-    <p>
-      What is common amongst almost all my interest is that I am fundamentally
-      drawn towards understanding things from the ground up. In tech, this means
-      understanding how our technologies work under the hood. In life, it means
-      answering questions that serve as a foundation for all other questions. I
-      simply have a strong passion for learning how things work and it never
-      ceases to amaze me how much complexity we are abstracting away on a daily
-      basis.
-    </p>
-    <br />
-    <p>
-      I am still very much in the process of learning web development, and
-      probably will forever be! I personally enjoy the simplicity of the core
-      languages (HTML/CSS/JS) and have built several simple projects with them.
-      Currently, I am learning NextJS for full-stack development and Astro for
-      creating simple and elegant websites.
-    </p>
-  </div>
+  <div
+    class="m-auto w-[65ch] text-xs md:text-2xl"
+    set:html={documentToHtmlString(content.fields.content)}
+  />
 </div>
