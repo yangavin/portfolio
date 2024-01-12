@@ -18,7 +18,7 @@ const content = await contentfulClient.getEntry<paragraphs>(
 <div>
   <h1 class="mb-10 text-xl md:mb-20 md:pl-10 md:text-5xl">About Me</h1>
   <div
-    class="m-auto w-[65ch] text-xs md:text-2xl"
+    class="m-auto max-w-[65ch] text-xs md:text-2xl"
     set:html={documentToHtmlString(content.fields.content)}
   />
 </div>
