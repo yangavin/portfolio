@@ -1,6 +1,6 @@
 # Portfolio Website (WIP)
 
-My personal portfolio website, currently a work-in-progress.
+My personal portfolio website, currently a work-in-progress. [Checkout the design here!](https://www.figma.com/file/F1HFgTPDHOeDk91wCMnlGv/Personal-Website?type=design&node-id=0%3A1&mode=design&t=EPRTcyZUFPtHFJVi-1)
 
 ## Technologies
 
