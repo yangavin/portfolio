@@ -22,6 +22,7 @@ const languages = (
   await contentfulClient.getEntries<techCard>({
     content_type: "techCard",
     "metadata.tags.sys.id[all]": ["language"],
+    order: ["sys.createdAt"],
   })
 ).items.map((language) => {
   return {
