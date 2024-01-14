@@ -1,0 +1,53 @@
+---
+import { contentfulClient } from "../lib/contentful";
+import type { EntryFieldTypes } from "contentful";
+
+type techCard = {
+  contentTypeId: "techCard";
+  fields: {
+    logo: EntryFieldTypes.AssetLink;
+    title: EntryFieldTypes.Text;
+    url: EntryFieldTypes.Text;
+  };
+};
+type Logo = {
+  fields: {
+    file: {
+      url: string;
+    };
+  };
+};
+
+const languages = (
+  await contentfulClient.getEntries<techCard>({
+    content_type: "techCard",
+    "metadata.tags.sys.id[all]": ["language"],
+  })
+).items.map((language) => {
+  return {
+    logo: `https:${(language.fields.logo as Logo).fields.file.url}`,
+    title: language.fields.title,
+    url: language.fields.url,
+  };
+});
+---
+
+<h1 class="text-center text-3xl md:text-9xl">Skills</h1>
+
+<hr
+  class="m-auto mb-5 w-1/2 border-neutral-600 bg-black md:mb-14 md:border-2"
+/>
+
+<h2 class="mb-3 text-center text-xl md:mb-10 md:text-6xl">Languages</h2>
+<div class="m-auto flex w-10/12 flex-wrap justify-around gap-x-7 gap-y-3">
+  {
+    languages.map(({ logo, title, url }) => {
+      return (
+        <a href={url} class="flex w-fit flex-col items-center">
+          <img src={logo} alt={title} class="w-5 md:w-20" />
+          <span class="text-xs md:text-2xl">{title}</span>
+        </a>
+      );
+    })
+  }
+</div>
