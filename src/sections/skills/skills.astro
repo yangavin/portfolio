@@ -19,19 +19,25 @@ type Logo = {
   };
 };
 
-const languages = (
-  await contentfulClient.getEntries<techCard>({
-    content_type: "techCard",
-    "metadata.tags.sys.id[all]": ["language"],
-    order: ["sys.createdAt"],
-  })
-).items.map((language) => {
-  return {
-    logo: `https:${(language.fields.logo as Logo).fields.file.url}`,
-    title: language.fields.title,
-    url: language.fields.url,
-  };
-});
+async function getTechCardsByTags(tags: string[]) {
+  return (
+    await contentfulClient.getEntries<techCard>({
+      content_type: "techCard",
+      "metadata.tags.sys.id[all]": tags,
+      order: ["sys.createdAt"],
+    })
+  ).items.map((techCard) => {
+    return {
+      logo: `https:${(techCard.fields.logo as Logo).fields.file.url}`,
+      title: techCard.fields.title,
+      url: techCard.fields.url,
+    };
+  });
+}
+
+const languages = await getTechCardsByTags(["language"]);
+const technologies = await getTechCardsByTags(["technology"]);
+const devTools = await getTechCardsByTags(["devTool"]);
 ---
 
 <div>
@@ -40,5 +46,9 @@ const languages = (
   <hr
     class="m-auto mb-5 w-1/2 border-neutral-600 bg-black md:mb-14 md:border-2"
   />
-  <Category skills={languages}>Languages</Category>
+  <div class="flex flex-col gap-3 md:gap-20">
+    <Category skills={languages}>Languages</Category>
+    <Category skills={technologies}>Technologies</Category>
+    <Category skills={devTools}>Dev Tools</Category>
+  </div>
 </div>
