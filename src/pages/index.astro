@@ -19,14 +19,16 @@ import Skills from "../sections/skills.astro";
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
     <title>Gavin Yan - Queen's Student</title>
   </head>
-  <body class="font-jua overflow-x-hidden bg-orange-100 text-neutral-600">
+  <body class="overflow-x-hidden bg-orange-100 font-jua text-neutral-600">
     <!-- <JokeOverlay client:load /> -->
     <img class="ml-auto h-[15vw] w-3/5" src="blue-box.svg" alt="Blue Box" />
     <Title />
     <hr class="-rotate-6 border-black bg-black md:border-2" />
     <main class="relative mt-12 md:mt-28 lg:mt-48">
-      <AboutMe />
-      <Skills />
+      <div class="flex flex-col gap-6 md:gap-20">
+        <AboutMe />
+        <Skills />
+      </div>
     </main>
   </body>
 </html>
