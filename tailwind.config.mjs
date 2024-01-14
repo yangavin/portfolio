@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "anonymous-pro": ["Anonymous Pro"],
+        jua: ["Jua"],
       },
       animation: {
         "slide-out": "slideOut 1.5s ease-in-out 1 forwards",
