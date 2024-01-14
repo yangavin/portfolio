@@ -1,6 +1,7 @@
 ---
-import { contentfulClient } from "../lib/contentful";
+import { contentfulClient } from "../../lib/contentful";
 import type { EntryFieldTypes } from "contentful";
+import Category from "./category.astro";
 
 type techCard = {
   contentTypeId: "techCard";
@@ -39,23 +40,5 @@ const languages = (
   <hr
     class="m-auto mb-5 w-1/2 border-neutral-600 bg-black md:mb-14 md:border-2"
   />
-
-  <h2 class="mb-3 text-center text-xl md:mb-10 md:text-6xl">Languages</h2>
-  <div
-    class="m-auto flex w-11/12 flex-wrap justify-center gap-x-4 gap-y-2 md:gap-x-7 md:gap-y-3"
-  >
-    {
-      languages.map(({ logo, title, url }) => {
-        return (
-          <a
-            href={url}
-            class="flex w-fit grow flex-col items-center gap-2 md:gap-6"
-          >
-            <img src={logo} alt={title} class="w-7 md:w-28" />
-            <span class="text-xs md:text-4xl">{title}</span>
-          </a>
-        );
-      })
-    }
-  </div>
+  <Category skills={languages}>Languages</Category>
 </div>
