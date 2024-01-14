@@ -4,13 +4,13 @@ type Skill = {
   title: string;
   url: string;
 };
-const { skills } = Astro.props as { skills: Skill[] };
+const { skills, small } = Astro.props as { skills: Skill[]; small: boolean };
 ---
 
 <div>
   <h2 class="mb-3 text-center text-2xl md:mb-10 md:text-6xl"><slot /></h2>
   <div
-    class="m-auto flex w-11/12 flex-wrap justify-center gap-x-5 gap-y-3 md:gap-x-7 md:gap-y-3"
+    class="m-auto flex w-11/12 flex-wrap justify-center gap-x-5 gap-y-3 md:gap-x-7 md:gap-y-6"
   >
     {
       skills.map(({ logo, title, url }) => {
@@ -19,8 +19,18 @@ const { skills } = Astro.props as { skills: Skill[] };
             href={url}
             class="flex w-fit grow flex-col items-center gap-2 md:gap-6"
           >
-            <img src={logo} alt={title} class="w-6 md:w-28" />
-            <span class="text-[8px] md:text-4xl">{title}</span>
+            <img
+              src={logo}
+              alt={title}
+              class={small ? "w-5 md:w-20" : "w-6 md:w-28"}
+            />
+            <span
+              class={
+                small ? "text-[6px] md:text-2xl" : "text-[8px] md:text-4xl"
+              }
+            >
+              {title}
+            </span>
           </a>
         );
       })
