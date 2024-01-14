@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        quicksand: ["Quicksand"],
         jua: ["Jua"],
       },
       animation: {
