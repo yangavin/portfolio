@@ -1,4 +1,4 @@
-import type { EntryFieldTypes, EntryField } from "contentful";
+import type { EntryFieldTypes } from "contentful";
 
 export type TechCardSkeleton = {
   contentTypeId: "techCard";
