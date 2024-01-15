@@ -9,14 +9,6 @@ export type TechCardSkeleton = {
   };
 };
 
-export type Logo = {
-  fields: {
-    file: {
-      url: string;
-    };
-  };
-};
-
 export type ProjectSkeleton = {
   contentTypeId: "projectCard";
   fields: {
@@ -29,5 +21,21 @@ export type ProjectSkeleton = {
     >;
     repoUrl: EntryFieldTypes.Text;
     color: EntryFieldTypes.Text;
+  };
+};
+
+export type Asset = {
+  fields: {
+    file: {
+      url: string;
+    };
+  };
+};
+
+export type TechCard = {
+  fields: {
+    logo: Asset;
+    title: string;
+    url: string;
   };
 };

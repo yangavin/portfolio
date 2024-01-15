@@ -1,6 +1,6 @@
 import { contentfulClient } from "../lib/contentful";
 import type { ProjectSkeleton } from "./models";
-import type { Logo } from "./models";
+import type { Asset, TechCard } from "./models";
 
 async function getProjectCards() {
   const rawProjects = await contentfulClient.getEntries<ProjectSkeleton>({
@@ -11,8 +11,8 @@ async function getProjectCards() {
   return rawProjects.items.map((projectCard) => {
     return {
       ...projectCard.fields,
-      logo: `https:${(projectCard.fields.logo as Logo).fields.file.url}`,
-      techUsed: projectCard.fields.techUsed.map((techCard) => {
+      logo: `https:${(projectCard.fields.logo as Asset).fields.file.url}`,
+      techUsed: (projectCard.fields.techUsed as TechCard[]).map((techCard) => {
         return {
           ...techCard.fields,
           logo: `https:${techCard.fields.logo.fields.file.url}`,

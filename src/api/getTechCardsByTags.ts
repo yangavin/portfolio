@@ -1,5 +1,5 @@
 import { contentfulClient } from "../lib/contentful";
-import type { TechCardSkeleton, Logo } from "./models";
+import type { TechCardSkeleton, Asset } from "./models";
 
 async function getTechCardsByTags(tags: string[]) {
   return (
@@ -10,9 +10,8 @@ async function getTechCardsByTags(tags: string[]) {
     })
   ).items.map((techCard) => {
     return {
-      logo: `https:${(techCard.fields.logo as Logo).fields.file.url}`,
-      title: techCard.fields.title,
-      url: techCard.fields.url,
+      ...techCard.fields,
+      logo: `https:${(techCard.fields.logo as Asset).fields.file.url}`,
     };
   });
 }
