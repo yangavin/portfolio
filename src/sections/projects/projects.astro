@@ -2,12 +2,7 @@
 import getProjectCards from "../../api/getProjectCards.js";
 import type { Logo } from "../../api/models";
 
-const projectsSkeleton = await getProjectCards();
-for (const project of projectsSkeleton.items) {
-  console.log(project.fields);
-}
-
-const projects = projectsSkeleton.items.map((project) => {
+const projects = (await getProjectCards()).items.map((project) => {
   return {
     ...project.fields,
     logo: `https:${(project.fields.logo as Logo).fields.file.url}`,
