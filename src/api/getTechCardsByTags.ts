@@ -1,25 +1,9 @@
 import { contentfulClient } from "../lib/contentful";
-import type { EntryFieldTypes } from "contentful";
-
-type techCard = {
-  contentTypeId: "techCard";
-  fields: {
-    logo: EntryFieldTypes.AssetLink;
-    title: EntryFieldTypes.Text;
-    url: EntryFieldTypes.Text;
-  };
-};
-type Logo = {
-  fields: {
-    file: {
-      url: string;
-    };
-  };
-};
+import type { TechCardSkeleton, Logo } from "./models";
 
 async function getTechCardsByTags(tags: string[]) {
   return (
-    await contentfulClient.getEntries<techCard>({
+    await contentfulClient.getEntries<TechCardSkeleton>({
       content_type: "techCard",
       "metadata.tags.sys.id[all]": tags,
       order: ["sys.createdAt"],
