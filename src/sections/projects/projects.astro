@@ -2,18 +2,7 @@
 import getProjectCards from "../../api/getProjectCards.js";
 import type { Logo } from "../../api/models";
 
-const projects = (await getProjectCards()).items.map((project) => {
-  return {
-    ...project.fields,
-    logo: `https:${(project.fields.logo as Logo).fields.file.url}`,
-    techUsed: project.fields.techUsed.map((techCard) => {
-      return {
-        ...techCard.fields,
-        logo: `https:${techCard.fields.logo.fields.file.url}`,
-      };
-    }),
-  };
-});
+const projects = await getProjectCards();
 ---
 
 <h1>hello</h1>
