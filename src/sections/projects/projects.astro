@@ -15,7 +15,25 @@ const projects = await getProjectCards();
     <div>When I wrote this code, only God and I understood what it meant.</div>
     <div>Now only God knows.</div>
   </div>
-  <div class="mx-[3vw] w-5/12">
-    <ProjectCard project={projects[0]} />
+
+  <div class="flex">
+    <div class="mx-[3vw] flex w-5/12 flex-col gap-20">
+      {
+        projects
+          .filter((_, index) => index % 2 === 0)
+          .map((project) => {
+            return <ProjectCard project={project} />;
+          })
+      }
+    </div>
+    <div class="mx-[3vw] mt-32 flex w-5/12 flex-col gap-20">
+      {
+        projects
+          .filter((_, index) => index % 2 !== 0)
+          .map((project) => {
+            return <ProjectCard project={project} />;
+          })
+      }
+    </div>
   </div>
 </div>
