@@ -1,0 +1,65 @@
+---
+type Props = {
+  project: {
+    logo: string;
+    techUsed: {
+      logo: string;
+      title: string;
+      url: string;
+    }[];
+    title: string;
+    projectUrl: string;
+    description: string;
+    repoUrl: string;
+    color: string;
+  };
+};
+const {
+  project: { logo, techUsed, title, projectUrl, description, repoUrl, color },
+} = Astro.props;
+
+console.log(Astro.props);
+---
+
+<div class="container p-4">
+  <div class="flex justify-between">
+    <h1>{title}</h1>
+    <a href={projectUrl} title={`Launch ${title}`}>
+      <img src="goto.svg" alt="Go-to-link image" srcset="" />
+    </a>
+  </div>
+
+  <div class="flex justify-between">
+    <p>{description}</p>
+    <img src={logo} alt="Project logo" srcset="" class="w-1/3" />
+  </div>
+
+  <div class="flex justify-between">
+    <div>
+      <h2 class="mb-2">Built with:</h2>
+      <div class="flex w-full gap-5">
+        {
+          techUsed.map((tech) => (
+            <a href={tech.url} title={tech.title} class="w-14">
+              <img src={tech.logo} alt={tech.title} srcset="" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+    <a href={repoUrl} title={`${title} repository`} class="mt-auto h-10 w-10">
+      <img src="github.svg" alt="GitHub Logo" srcset="" />
+    </a>
+  </div>
+</div>
+
+<style>
+  .container {
+    border-radius: 0.4375rem;
+    background: linear-gradient(
+      119deg,
+      #a383fc 1.7%,
+      rgba(221, 208, 255, 0.6) 58.67%
+    );
+  }
+</style>
