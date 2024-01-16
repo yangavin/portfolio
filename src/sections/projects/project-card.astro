@@ -19,8 +19,8 @@ const {
 } = Astro.props;
 ---
 
-<div class="container p-4">
-  <h1>{title}</h1>
+<div class="container px-8 pb-4 pt-8">
+  <h1 class="text-4xl">{title}</h1>
 
   <div class="flex justify-end">
     <a href={projectUrl} title={`Launch ${title}`}>
@@ -29,7 +29,7 @@ const {
   </div>
 
   <div class="flex items-center">
-    <p>{description}</p>
+    <p class="text-lg">{description}</p>
   </div>
 
   <div class="flex items-center">
@@ -65,8 +65,8 @@ const {
       rgba(221, 208, 255, 0.6) 58.67%
     );
     display: grid;
-    grid-template-columns: 60% 25%;
-    column-gap: 15%;
-    grid-template-rows: 3rem 2fr 1fr;
+    grid-template-columns: 60% 1fr;
+    column-gap: 2rem;
+    grid-template-rows: 3rem 3fr 1fr;
   }
 </style>
