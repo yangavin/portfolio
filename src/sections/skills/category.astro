@@ -1,10 +1,13 @@
 ---
-type Skill = {
-  logo: string;
-  title: string;
-  url: string;
+type Props = {
+  skills: {
+    logo: string;
+    title: string;
+    url: string;
+  }[];
+  small?: boolean;
 };
-const { skills, small } = Astro.props as { skills: Skill[]; small: boolean };
+const { skills, small } = Astro.props;
 ---
 
 <div>
