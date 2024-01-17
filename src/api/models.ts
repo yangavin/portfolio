@@ -14,7 +14,7 @@ export type ProjectSkeleton = {
   fields: {
     title: EntryFieldTypes.Text;
     projectUrl: EntryFieldTypes.Text;
-    description: EntryFieldTypes.Text;
+    description: EntryFieldTypes.RichText;
     logo: EntryFieldTypes.AssetLink;
     techUsed: EntryFieldTypes.Array<
       EntryFieldTypes.EntryLink<TechCardSkeleton>

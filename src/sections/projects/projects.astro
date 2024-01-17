@@ -3,6 +3,7 @@ import getProjectCards from "../../api/getProjectCards.js";
 import ProjectCard from "./project-card.astro";
 
 const projects = await getProjectCards();
+console.log(JSON.stringify(projects[3].description));
 ---
 
 <div>

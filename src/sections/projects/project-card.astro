@@ -28,12 +28,10 @@ const {
     </a>
   </div>
 
-  <div class="flex items-center">
-    <p class="text-lg">{description}</p>
-  </div>
+  <div class="flex items-center text-lg" set:html={description} />
 
   <div class="flex items-center">
-    <img src={logo} alt="Project logo" srcset="" />
+    <img src={logo} alt="Project logo" srcset="" class="w-full" />
   </div>
 
   <div>

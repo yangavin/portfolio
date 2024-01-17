@@ -1,6 +1,6 @@
 import { contentfulClient } from "../lib/contentful";
-import type { ProjectSkeleton } from "./models";
-import type { Asset, TechCard } from "./models";
+import type { ProjectSkeleton, Asset, TechCard } from "./models";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 async function getProjectCards() {
   const rawProjects = await contentfulClient.getEntries<ProjectSkeleton>({
@@ -18,6 +18,7 @@ async function getProjectCards() {
           logo: `https:${techCard.fields.logo.fields.file.url}`,
         };
       }),
+      description: documentToHtmlString(projectCard.fields.description),
     };
   });
 }
