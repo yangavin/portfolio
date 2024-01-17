@@ -5,7 +5,7 @@ import ProjectCard from "./project-card.astro";
 const projects = await getProjectCards();
 ---
 
-<div>
+<div class="desktop">
   <h1 class="text-center text-4xl md:text-9xl">Projects</h1>
 
   <hr
@@ -16,6 +16,7 @@ const projects = await getProjectCards();
     <div>Now only God knows.</div>
   </div>
 
+  <!-- Desktop View -->
   <div class="flex">
     <div class="mx-[3vw] flex w-5/12 flex-col gap-20">
       {
@@ -37,3 +38,24 @@ const projects = await getProjectCards();
     </div>
   </div>
 </div>
+
+<!-- Mobile View -->
+<div class="mobile flex flex-col gap-20">
+  {
+    projects.map((project) => {
+      return <ProjectCard project={project} />;
+    })
+  }
+</div>
+<style>
+  @media (min-width: 1536px) {
+    .mobile {
+      display: none;
+    }
+  }
+  @media (max-width: 1535px) {
+    .desktop {
+      display: none;
+    }
+  }
+</style>
