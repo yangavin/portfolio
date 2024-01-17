@@ -28,7 +28,9 @@ const {
     </a>
   </div>
 
-  <div class="flex items-center text-lg" set:html={description} />
+  <div class="flex items-center text-lg">
+    <div set:html={description} />
+  </div>
 
   <div class="flex items-center">
     <img src={logo} alt="Project logo" srcset="" class="w-full" />
