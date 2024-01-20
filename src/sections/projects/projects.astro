@@ -23,7 +23,7 @@ const projects = await getProjectCards();
         projects
           .filter((_, index) => index % 2 === 0)
           .map((project) => {
-            return <ProjectCard project={project} />;
+            return <ProjectCard project={project} mobile={false} />;
           })
       }
     </div>
@@ -32,7 +32,7 @@ const projects = await getProjectCards();
         projects
           .filter((_, index) => index % 2 !== 0)
           .map((project) => {
-            return <ProjectCard project={project} />;
+            return <ProjectCard project={project} mobile={false} />;
           })
       }
     </div>
@@ -40,20 +40,20 @@ const projects = await getProjectCards();
 </div>
 
 <!-- Mobile View -->
-<div class="mobile flex flex-col gap-20">
+<div class="mobile flex flex-col items-center gap-20">
   {
     projects.map((project) => {
-      return <ProjectCard project={project} />;
+      return <ProjectCard project={project} mobile />;
     })
   }
 </div>
 <style>
-  @media (min-width: 1536px) {
+  @media (min-width: 1400px) {
     .mobile {
       display: none;
     }
   }
-  @media (max-width: 1535px) {
+  @media (max-width: 1400px) {
     .desktop {
       display: none;
     }

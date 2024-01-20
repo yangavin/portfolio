@@ -13,9 +13,11 @@ type Props = {
     repoUrl: string;
     color: string;
   };
+  mobile: boolean;
 };
 const {
   project: { logo, techUsed, title, projectUrl, description, repoUrl, color },
+  mobile,
 } = Astro.props;
 ---
 
@@ -62,7 +64,7 @@ const {
     display: grid;
     grid-template-columns: 60% 1fr;
     column-gap: 2rem;
-    grid-template-rows: 3rem 3fr 1fr;
+    grid-template-rows: 0.5fr 3fr 1fr;
   }
   .purple {
     background: linear-gradient(
@@ -107,3 +109,10 @@ const {
     );
   }
 </style>
+{mobile && (
+  <style>
+    .container{
+      row-gap: 1rem;
+    }
+  </style>
+)}
