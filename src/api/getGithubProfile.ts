@@ -45,6 +45,9 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
       }),
     })
   ).json();
+  if (!profileData.data) {
+    throw new Error(`ERROR: ${JSON.stringify(profileData)}`);
+  }
   const user = profileData.data.user;
   return {
     url: user.url,
