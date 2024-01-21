@@ -5,21 +5,20 @@ function JokeQuestion({
   setDone,
 }: {
   children: string;
-  setDone: (done: boolean) => void;
+  setDone: () => void;
   key: string;
 }) {
   const [index, setIndex] = useState(0);
   const displayedQuestion = children.slice(0, index);
+  if (displayedQuestion === children) setDone();
 
   useEffect(() => {
     if (index < children.length) {
-      setDone(false);
       const timeout = setTimeout(() => {
         setIndex((oldIndex) => oldIndex + 1);
       }, 50);
       return () => clearTimeout(timeout);
     }
-    setDone(true);
   }, [index]);
 
   return (

@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 function JokePunchline({
   children,
   showCursor,
+  setDone,
 }: {
   children: string;
   showCursor: boolean;
+  setDone: () => void;
   key: string;
 }) {
   const [index, setIndex] = useState(0);
   const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
+  if (displayedPunchline === children) setDone();
 
   useEffect(() => {
     if (showCursor) {
