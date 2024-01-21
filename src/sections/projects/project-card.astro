@@ -22,10 +22,10 @@ const {
 ---
 
 <div class={`container px-8 pb-4 pt-8 ${color}`}>
-  <h1 class="text-4xl">{title}</h1>
+  <h1 class="text-3xl">{title}</h1>
 
   <div class="flex justify-end">
-    <a href={projectUrl} title={`Launch ${title}`}>
+    <a href={projectUrl} title={`Launch ${title}`} target="_blank">
       <img src="goto.svg" alt="Go-to-link image" srcset="" />
     </a>
   </div>
@@ -43,7 +43,7 @@ const {
     <div class="flex gap-5">
       {
         techUsed.map((tech) => (
-          <a href={tech.url} title={tech.title} class="w-12">
+          <a href={tech.url} title={tech.title} class="w-12" target="_blank">
             <img src={tech.logo} alt={tech.title} srcset="" />
           </a>
         ))
@@ -52,7 +52,7 @@ const {
   </div>
 
   <div class="flex items-end justify-end">
-    <a href={repoUrl} title={`${title} repository`}>
+    <a href={repoUrl} title={`${title} repository`} target="_blank">
       <img src="github.svg" alt="GitHub Logo" srcset="" />
     </a>
   </div>
@@ -63,8 +63,8 @@ const {
     border-radius: 0.4375rem;
     display: grid;
     grid-template-columns: 60% 1fr;
-    column-gap: 2rem;
-    grid-template-rows: 0.5fr 3fr 1fr;
+    column-gap: 3rem;
+    grid-template-rows: 2rem 3fr 1fr;
   }
   .purple {
     background: linear-gradient(
@@ -109,10 +109,4 @@ const {
     );
   }
 </style>
-{mobile && (
-  <style>
-    .container{
-      row-gap: 1rem;
-    }
-  </style>
-)}
+{mobile && <style>.container{}</style>}

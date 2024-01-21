@@ -50,7 +50,7 @@ export default function GithubCard() {
                 <p>{repositories}</p>
               </div>
               <div className="flex flex-col items-center">
-                <h1>Total Contributions</h1>
+                <h1 className="text-center">Total Contributions</h1>
                 <p>{totalContributions}</p>
               </div>
             </div>
