@@ -1,60 +1,75 @@
 import type { GithubProfile } from "./models";
 
-type ProfileData = {
-  data: {
-    user: {
-      url: string;
-      name: string;
-      avatarUrl: string;
-      contributionsCollection: {
-        contributionCalendar: {
-          totalContributions: number;
-        };
-      };
-      repositories: {
-        totalCount: number;
-      };
-    };
+// Types from https://github.com/grubersjoe/github-contributions-api
+interface Contribution {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+interface Response {
+  total: {
+    [year: number]: number;
+    [year: string]: number; // 'lastYear'
   };
+  contributions: Array<Contribution>;
+}
+
+// Response type from https://api.github.com/users
+type GithubProfileRes = {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  site_admin: boolean;
+  name: string;
+  company: string | null;
+  blog: string;
+  location: string | null;
+  email: string | null;
+  hireable: boolean | null;
+  bio: string | null;
+  twitter_username: string | null;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export default async function getGithubProfile(): Promise<GithubProfile> {
-  const profileData: ProfileData = await (
-    await fetch("https://api.github.com/graphql", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${import.meta.env.PUBLIC_GITHUB_ACCESS_TOKEN}`,
-      },
-      method: "POST",
-      body: JSON.stringify({
-        query: `query { 
-        user(login:"yangavin"){
-          url
-          name
-          avatarUrl
-          contributionsCollection{
-            contributionCalendar{
-              totalContributions
-            }
-          }
-          repositories(visibility:PUBLIC){
-            totalCount
-          }
-        }
-      }`,
-      }),
-    })
+  const profileData: GithubProfileRes = await (
+    await fetch("https://api.github.com/users/yangavin")
   ).json();
-  if (!profileData.data) {
-    throw new Error(`ERROR: ${JSON.stringify(profileData)}`);
-  }
-  const user = profileData.data.user;
+  const { html_url, name, avatar_url, public_repos } = profileData;
+
+  const contributionsData: Response = await (
+    await fetch("https://github-contributions-api.jogruber.de/v4/yangavin")
+  ).json();
+  const totalContributions = Object.values(contributionsData.total).reduce(
+    (acc, curr) => acc + curr,
+    0,
+  );
+
   return {
-    url: user.url,
-    name: user.name,
-    avatarUrl: user.avatarUrl,
-    repositories: user.repositories.totalCount,
-    totalContributions:
-      user.contributionsCollection.contributionCalendar.totalContributions,
+    url: html_url,
+    name,
+    avatarUrl: avatar_url,
+    repositories: public_repos,
+    totalContributions,
   };
 }

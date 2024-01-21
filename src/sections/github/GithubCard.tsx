@@ -46,7 +46,7 @@ export default function GithubCard() {
             />
             <div className="flex flex-col gap-5 text-xl">
               <div className="flex flex-col items-center">
-                <h1>Repository</h1>
+                <h1>Repositories</h1>
                 <p>{repositories}</p>
               </div>
               <div className="flex flex-col items-center">
