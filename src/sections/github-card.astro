@@ -1,3 +1,9 @@
+---
+import getGithubProfile from "../api/getGithubProfile";
+const { name, url, avatarUrl, repositories, totalContributions } =
+  await getGithubProfile();
+---
+
 <div class="text-slate-200">
   <a
     href="https://github.com"
@@ -6,13 +12,13 @@
     ><img src="named-github.svg" alt="GitHub Logo" /></a
   >
   <div class="m-auto w-9/12 max-w-xl">
-    <a href="https://github.com/yangavin" target="_blank">
+    <a href={url} target="_blank">
       <div
         class="flex flex-col items-center justify-evenly gap-12 rounded-md bg-gray-700 px-8 py-12 md:flex-row md:gap-0"
       >
         <div class="flex flex-col items-center gap-5">
-          <img src="personal-logo.svg" alt="Personal Logo" class="w-28" />
-          <h1 class="text-3xl">Gavin Yan</h1>
+          <img src={avatarUrl} alt="Personal Logo" class="w-28" />
+          <h1 class="text-3xl">{name}</h1>
         </div>
         <img
           src="vertical-line.svg"
@@ -23,11 +29,11 @@
         <div class="flex flex-col gap-5 text-xl">
           <div class="flex flex-col items-center">
             <h1>Repository</h1>
-            <p>17</p>
+            <p>{repositories}</p>
           </div>
           <div class="flex flex-col items-center">
             <h1>Total Contributions</h1>
-            <p>412</p>
+            <p>{totalContributions}</p>
           </div>
         </div>
       </div>
