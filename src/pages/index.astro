@@ -26,13 +26,30 @@ import GithubCard from "../sections/github/GithubCard";
     <img class="ml-auto h-[15vw] w-3/5" src="blue-box.svg" alt="Blue Box" />
     <Title />
     <hr class="-rotate-6 border-black bg-black md:border-2" />
-    <main class="relative mt-12 md:mt-28 lg:mt-48">
+
+    <main class="relative m-12 md:mt-28 lg:mt-48">
       <div class="flex flex-col gap-6 md:gap-20">
-        <!-- <AboutMe />
-        <Skills /> -->
-        <!-- <Projects /> -->
+        <AboutMe />
+        <Skills />
+        <Projects />
         <GithubCard client:idle />
       </div>
     </main>
+
+    <footer
+      class="flex items-center justify-between bg-neutral-500 px-10 py-5 text-slate-200"
+    >
+      <div>© 2024 Gavin Yan | All rights reserved</div>
+      <div class="flex items-center">
+        <div>
+          <h1 class="text-xl">Website's Source Code</h1>
+          <h2>I had a lot of fun building this.</h2>
+        </div>
+        <div class="ml-2 mr-4">-&gt;</div>
+        <a href="https://github.com/yangavin/portfolio" target="_blank"
+          ><img src="github.svg" alt="GitHub Logo" /></a
+        >
+      </div>
+    </footer>
   </body>
 </html>
