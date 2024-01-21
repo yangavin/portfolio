@@ -1,3 +1,5 @@
+import type { GithubProfile } from "./models";
+
 type ProfileData = {
   data: {
     user: {
@@ -16,12 +18,12 @@ type ProfileData = {
   };
 };
 
-export default async function getGithubProfile() {
+export default async function getGithubProfile(): Promise<GithubProfile> {
   const profileData: ProfileData = await (
     await fetch("https://api.github.com/graphql", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${import.meta.env.GITHUB_ACCESS_TOKEN}`,
+        Authorization: `bearer ${import.meta.env.PUBLIC_GITHUB_ACCESS_TOKEN}`,
       },
       method: "POST",
       body: JSON.stringify({

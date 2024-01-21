@@ -4,7 +4,7 @@ import Title from "../sections/title.astro";
 import AboutMe from "../sections/about-me.astro";
 import Skills from "../sections/skills/skills.astro";
 import Projects from "../sections/projects/projects.astro";
-import GithubCard from "../sections/github-card.astro";
+import GithubCard from "../sections/github/GithubCard";
 ---
 
 <html lang="en">
@@ -31,7 +31,7 @@ import GithubCard from "../sections/github-card.astro";
         <!-- <AboutMe />
         <Skills /> -->
         <!-- <Projects /> -->
-        <GithubCard />
+        <GithubCard client:idle />
       </div>
     </main>
   </body>
