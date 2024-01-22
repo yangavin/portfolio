@@ -16,8 +16,14 @@ function JokeOverlay() {
     fetch("https://backend-omega-seven.vercel.app/api/getjoke")
       .then((res) => res.json())
       .then((jokeData: Joke) => {
+        console.log(`Joke fetched: ${JSON.stringify(jokeData)}`);
         setQuestion(jokeData[0].question);
         setPunchline(jokeData[0].punchline);
+      })
+      .catch((err) => {
+        // Remove overlay if unable to fetch
+        setJokeDone(true);
+        console.error(err);
       });
   }, []);
 
@@ -52,7 +58,10 @@ function JokeOverlay() {
     );
   }
   return (
-    <div className="fixed z-10 flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20">
+    <div
+      ref={overlay}
+      className="fixed z-10 flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
+    >
       <hr className="w-9/12 border-black" />
     </div>
   );
