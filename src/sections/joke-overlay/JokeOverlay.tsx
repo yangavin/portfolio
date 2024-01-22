@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import JokeQuestion from "./JokeQuestion";
 import JokePunchline from "./JokePunchline";
 
+type Joke = [{ question: string; punchline: string }];
+
 function JokeOverlay() {
   const [question, setQuestion] = useState(
     "Why couldn't web developers find their room in a hotel?",
@@ -11,7 +13,17 @@ function JokeOverlay() {
   );
   const [questionDone, setQuestionDone] = useState(false);
   const [jokeDone, setJokeDone] = useState(false);
+
   const overlay = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("https://backend-omega-seven.vercel.app/api/getjoke")
+      .then((res) => res.json())
+      .then((jokeData: Joke) => {
+        setQuestion(jokeData[0].question);
+        setPunchline(jokeData[0].punchline);
+      });
+  }, []);
 
   useEffect(() => {
     if (jokeDone) {
@@ -20,8 +32,9 @@ function JokeOverlay() {
         const body = document.querySelector("body")!;
         body.style.overflowY = "auto";
       }, 3000);
+      return () => clearTimeout(fadeoutTimer);
     }
-  });
+  }, [jokeDone]);
 
   return (
     <div
