@@ -1,6 +1,8 @@
 # Portfolio Website (WIP)
 
-My personal portfolio website, currently a work-in-progress. [Checkout the design here!](https://www.figma.com/proto/F1HFgTPDHOeDk91wCMnlGv/Personal-Website?type=design&node-id=2-2&t=gxkCVz54pbzRWUN1-0&scaling=scale-down&page-id=0:1)
+My personal portfolio website. [Check it out!](https://gavinyan.vercel.app)
+
+Note that the site is still under development. Extra improvements are still being worked on.
 
 ## Technologies
 
