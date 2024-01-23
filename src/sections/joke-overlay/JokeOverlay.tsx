@@ -70,6 +70,9 @@ function JokeOverlay() {
       ref={overlay}
       className="fixed z-10 flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
     >
+      <h1 className="w-3/4 text-center text-2xl md:text-3xl lg:text-7xl lg:leading-snug">
+        <span className="animate-pulse">|</span>
+      </h1>
       <hr className="w-9/12 border-black" />
     </div>
   );

@@ -24,7 +24,7 @@ function JokeQuestion({
   return (
     <h1 className="w-3/4 text-center text-2xl md:text-3xl lg:text-7xl lg:leading-snug">
       <span>{displayedQuestion}</span>
-      <span>{index < children.length && "|"}</span>
+      <span className="animate-pulse">{index < children.length && "|"}</span>
     </h1>
   );
 }
