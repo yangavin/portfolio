@@ -13,7 +13,6 @@ function JokePunchline({
   const [index, setIndex] = useState(0);
   const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
-  if (displayedPunchline === children) setDone();
 
   useEffect(() => {
     if (showCursor) {
@@ -29,6 +28,7 @@ function JokePunchline({
       }, 50);
       return () => clearTimeout(nextCharTimer);
     }
+    if (start) setDone();
   }, [start, index]);
 
   return (

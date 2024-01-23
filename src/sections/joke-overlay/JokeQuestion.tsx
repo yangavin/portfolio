@@ -10,7 +10,6 @@ function JokeQuestion({
 }) {
   const [index, setIndex] = useState(0);
   const displayedQuestion = children.slice(0, index);
-  if (displayedQuestion === children) setDone();
 
   useEffect(() => {
     if (index < children.length) {
@@ -19,6 +18,7 @@ function JokeQuestion({
       }, 50);
       return () => clearTimeout(timeout);
     }
+    setDone();
   }, [index]);
 
   return (
