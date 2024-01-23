@@ -60,7 +60,7 @@ function JokeOverlay() {
         overlay.current?.classList.add("animate-slide-out");
         const body = document.querySelector("body")!;
         body.style.overflowY = "auto";
-      }, 3000);
+      }, 2000);
       return () => clearTimeout(fadeoutTimer);
     }
   }, [jokeDone]);
