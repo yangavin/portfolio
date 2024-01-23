@@ -41,7 +41,6 @@ function JokeOverlay() {
     )
       .then((res) => res.json())
       .then((jokeData: Joke) => {
-        console.log(`Joke fetched: ${JSON.stringify(jokeData)}`);
         setQuestion(jokeData.setup);
         setPunchline(jokeData.delivery);
       })
@@ -65,6 +64,7 @@ function JokeOverlay() {
       return () => clearTimeout(fadeoutTimer);
     }
   }, [jokeDone]);
+
   if (question && punchline) {
     return (
       <div
