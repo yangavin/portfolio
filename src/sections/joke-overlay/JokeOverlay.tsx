@@ -2,7 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import JokeQuestion from "./JokeQuestion";
 import JokePunchline from "./JokePunchline";
 
-type Joke = [{ question: string; punchline: string }];
+type Joke = {
+  error: boolean;
+  category: "Programming" | "Misc" | "Dark" | "Pun" | "Spooky" | "Christmas";
+  type: string;
+  setup: string;
+  delivery: string;
+  flags: {
+    nsfw: boolean;
+    religious: boolean;
+    political: boolean;
+    racist: boolean;
+    sexist: boolean;
+    explicit: boolean;
+  };
+  id: number;
+  safe: boolean;
+  lang: string;
+};
 
 function JokeOverlay() {
   const [question, setQuestion] = useState("");
@@ -16,14 +33,17 @@ function JokeOverlay() {
     const controller = new AbortController();
     const fetchTimeout = setTimeout(() => controller.abort(), 3000);
 
-    fetch("https://backend-omega-seven.vercel.app/api/getjoke", {
-      signal: controller.signal,
-    })
+    fetch(
+      "https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit&type=twopart",
+      {
+        signal: controller.signal,
+      },
+    )
       .then((res) => res.json())
       .then((jokeData: Joke) => {
         console.log(`Joke fetched: ${JSON.stringify(jokeData)}`);
-        setQuestion(jokeData[0].question);
-        setPunchline(jokeData[0].punchline);
+        setQuestion(jokeData.setup);
+        setPunchline(jokeData.delivery);
       })
       .catch((err) => {
         // Default to this joke if the fetching is too slow
