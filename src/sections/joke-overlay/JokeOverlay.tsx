@@ -13,7 +13,12 @@ function JokeOverlay() {
   const overlay = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch("https://backend-omega-seven.vercel.app/api/getjoke")
+    const controller = new AbortController();
+    const fetchTimeout = setTimeout(() => controller.abort(), 3000);
+
+    fetch("https://backend-omega-seven.vercel.app/api/getjoke", {
+      signal: controller.signal,
+    })
       .then((res) => res.json())
       .then((jokeData: Joke) => {
         console.log(`Joke fetched: ${JSON.stringify(jokeData)}`);
@@ -21,10 +26,13 @@ function JokeOverlay() {
         setPunchline(jokeData[0].punchline);
       })
       .catch((err) => {
-        // Remove overlay if unable to fetch
-        setJokeDone(true);
+        // Default to this joke if the fetching is too slow
+        setQuestion("Why couldn't web developers find their room in a hotel?");
+        setPunchline("Because their room number is 404");
         console.error(err);
       });
+
+    return () => clearTimeout(fetchTimeout);
   }, []);
 
   useEffect(() => {
