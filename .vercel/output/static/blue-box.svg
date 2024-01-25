@@ -1,7 +1,0 @@
-<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Blue triangle on the top -->
-  <polygon points="0,0 400,0 400,200" fill="rgb(147, 197, 253)" />
-
-  <!-- Transparent triangle on the bottom -->
-  <polygon points="0,0 0,200 400,200" fill="transparent" />
-</svg>
