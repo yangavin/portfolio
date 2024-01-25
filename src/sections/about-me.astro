@@ -20,7 +20,7 @@ const content = await contentfulClient.getEntry<paragraphs>(
   <img src="red-ellipse.svg" class="absolute right-0 top-2/3 -z-10" />
   <h1 class="mb-10 text-3xl md:mb-36 md:pl-10 md:text-9xl">About Me</h1>
   <div
-    class="relative m-auto flex max-w-[55ch] flex-col gap-[3ch] text-xs md:text-2xl"
+    class="relative m-auto flex max-w-[55ch] flex-col gap-[3ch] md:text-2xl"
     set:html={documentToHtmlString(content.fields.content)}
   />
 </div>
