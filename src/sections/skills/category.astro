@@ -11,18 +11,20 @@ const { skills, small } = Astro.props;
 ---
 
 <div>
-  <h2 class="mb-10 text-center"><slot /></h2>
+  <h2 class="mb-5 mt-10 text-center"><slot /></h2>
   <div class="m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-6">
     {
       skills.map(({ logo, title, url }) => {
         return (
           <a
             href={url}
-            class="flex w-fit grow flex-col items-center gap-6"
+            class={`flex w-fit grow flex-col items-center gap-6 ${
+              small ? "small" : ""
+            }`}
             target="_blank"
           >
-            <img src={logo} alt={title} class={small ? "w-20" : "w-28"} />
-            <span class={small ? "text-2xl" : ""}>{title}</span>
+            <img src={logo} alt={title} />
+            <span>{title}</span>
           </a>
         );
       })
@@ -35,9 +37,15 @@ const { skills, small } = Astro.props;
     font-size: clamp(1.5rem, 5vw, 3rem);
   }
   span {
-    font-size: clamp(1.5rem, 2vw, 3rem);
+    font-size: clamp(1rem, 2.5vw, 3rem);
   }
   img {
     width: clamp(3rem, 10vw, 7rem);
+  }
+  .small img {
+    width: clamp(2rem, 7vw, 5rem);
+  }
+  .small span {
+    font-size: clamp(1rem, 2vw, 2rem);
   }
 </style>
