@@ -5,19 +5,20 @@ import ProjectCard from "./project-card.astro";
 const projects = await getProjectCards();
 ---
 
-<div class="desktop">
-  <h1 class="text-center text-4xl md:text-9xl">Projects</h1>
+<div>
+  <h1 class="text-center text-[11vw]">Projects</h1>
 
-  <hr
-    class="m-auto mb-5 w-1/2 border-neutral-600 bg-black md:mb-14 md:border-2"
-  />
-  <div class="quote text-center text-[3vw]">
-    <div>When I wrote this code, only God and I understood what it meant.</div>
+  <hr class="m-auto w-1/2 border-neutral-600 bg-black md:border-2" />
+
+  <div class="quote clamp-text my-8 text-center">
+    <div class="mb-4">
+      When I wrote this code, only God and I understood what it meant.
+    </div>
     <div>Now only God knows.</div>
   </div>
 
   <!-- Desktop View -->
-  <div class="flex">
+  <div class="desktop flex">
     <div class="mx-[3vw] flex w-5/12 flex-col gap-20">
       {
         projects
@@ -37,16 +38,17 @@ const projects = await getProjectCards();
       }
     </div>
   </div>
+
+  <!-- Mobile View -->
+  <div class="mobile flex flex-col items-center gap-20">
+    {
+      projects.map((project) => {
+        return <ProjectCard project={project} mobile />;
+      })
+    }
+  </div>
 </div>
 
-<!-- Mobile View -->
-<div class="mobile flex flex-col items-center gap-20">
-  {
-    projects.map((project) => {
-      return <ProjectCard project={project} mobile />;
-    })
-  }
-</div>
 <style>
   @media (min-width: 1400px) {
     .mobile {
@@ -57,5 +59,8 @@ const projects = await getProjectCards();
     .desktop {
       display: none;
     }
+  }
+  .clamp-text {
+    font-size: clamp(1rem, 3vw, 3rem);
   }
 </style>
