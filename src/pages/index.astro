@@ -39,19 +39,40 @@ import GithubCard from "../sections/github/GithubCard";
     </main>
 
     <footer
-      class="flex items-center justify-between bg-neutral-500 px-10 py-5 text-slate-200"
+      class="footer flex items-center justify-between bg-neutral-500 px-[5%] py-[3%] text-slate-200"
     >
-      <div>© 2024 Gavin Yan | All rights reserved</div>
+      <div class="text-center">© 2024 Gavin Yan | All rights reserved</div>
       <div class="flex items-center">
-        <div>
-          <h1 class="text-xl">Website's Source Code</h1>
-          <h2>I had a lot of fun building this.</h2>
+        <div class="text-center">
+          <h1>Website's Source Code</h1>
+          <h2 class="small-description">I had a lot of fun building this.</h2>
         </div>
-        <div class="ml-2 mr-4">-&gt;</div>
-        <a href="https://github.com/yangavin/portfolio" target="_blank"
-          ><img src="github.svg" alt="GitHub Logo" /></a
+        <div class="mx-[2vw]">
+          <svg
+            fill="rgb(226 232 240)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="10.605"
+            height="15.555"
+            ><path
+              d="m2.828 15.555 7.777-7.779L2.828 0 0 2.828l4.949 4.948L0 12.727l2.828 2.828z"
+            ></path></svg
+          >
+        </div>
+        <a
+          href="https://github.com/yangavin/portfolio"
+          target="_blank"
+          class="w-8"><img src="github.svg" alt="GitHub Logo" /></a
         >
       </div>
     </footer>
   </body>
+
+  <style>
+    .footer {
+      font-size: clamp(0.7rem, 1.5vw, 2rem);
+    }
+    .small-description {
+      font-size: 0.7em;
+    }
+  </style>
 </html>
