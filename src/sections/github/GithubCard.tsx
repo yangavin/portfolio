@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
 import getGithubProfile from "../../api/getGithubProfile";
 import type { GithubProfile } from "../../api/models";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function GithubCard() {
-  const [profileData, setProfileData] = useState<GithubProfile>();
-  const [loading, setLoading] = useState(true);
+  const [profileData, setProfileData] = useState<GithubProfile | undefined>();
 
   useEffect(() => {
     getGithubProfile()
       .then((profileData) => {
         setProfileData(profileData);
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
       });
-  });
-  if (loading) return <div>Loading...</div>;
+  }, []);
 
-  if (!profileData) return <div>Error fetching data</div>;
-
-  const { name, url, avatarUrl, repositories, totalContributions } =
-    profileData;
   return (
     <div className="text-slate-200">
       <a
@@ -33,11 +27,15 @@ export default function GithubCard() {
         <img src="named-github.svg" alt="GitHub Logo" />
       </a>
       <div className="m-auto w-9/12 max-w-xl">
-        <a href={url} target="_blank">
+        <a href="https://github.com/yangavin" target="_blank">
           <div className="flex flex-col items-center justify-evenly gap-12 rounded-md bg-gray-700 px-8 py-12 md:flex-row md:gap-0">
             <div className="flex flex-col items-center gap-5">
-              <img src={avatarUrl} alt="Personal Logo" className="w-28" />
-              <h1 className="text-3xl">{name}</h1>
+              <img
+                src="https://avatars.githubusercontent.com/u/120120964?v=4"
+                alt="Personal Logo"
+                className="w-28"
+              />
+              <h1 className="text-3xl">Gavin Yan</h1>
             </div>
             <img
               src="vertical-line.svg"
@@ -47,11 +45,29 @@ export default function GithubCard() {
             <div className="flex flex-col gap-5 text-xl">
               <div className="flex flex-col items-center">
                 <h1>Repositories</h1>
-                <p>{repositories}</p>
+                <p>
+                  {profileData ? (
+                    <>{profileData.repositories}</>
+                  ) : (
+                    <Skeleton
+                      width={80}
+                      baseColor="#6b7280"
+                      highlightColor="#9ca3af"
+                    />
+                  )}
+                </p>
               </div>
               <div className="flex flex-col items-center">
                 <h1 className="text-center">Total Contributions</h1>
-                <p>{totalContributions}</p>
+                {profileData ? (
+                  <p>{profileData.totalContributions}</p>
+                ) : (
+                  <Skeleton
+                    width={120}
+                    baseColor="#6b7280"
+                    highlightColor="#9ca3af"
+                  />
+                )}
               </div>
             </div>
           </div>

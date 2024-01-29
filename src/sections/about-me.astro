@@ -18,9 +18,14 @@ const content = await contentfulClient.getEntry<paragraphs>(
 <div class="relative px-8">
   <img src="yellow-cylinder.svg" class="absolute left-0 top-1/3 -z-10" />
   <img src="red-ellipse.svg" class="absolute right-0 top-2/3 -z-10" />
-  <h1 class="mb-10 text-3xl md:mb-36 md:pl-10 md:text-9xl">About Me</h1>
+  <h1 class="mb-10 text-[11vw]">About Me</h1>
   <div
-    class="relative m-auto flex max-w-[55ch] flex-col gap-[3ch] text-xs md:text-2xl"
+    class="clamp-text relative m-auto flex max-w-[55ch] flex-col gap-[3ch]"
     set:html={documentToHtmlString(content.fields.content)}
   />
 </div>
+<style>
+  .clamp-text {
+    font-size: clamp(1rem, 2.5vw, 1.7rem);
+  }
+</style>
