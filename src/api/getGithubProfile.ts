@@ -55,7 +55,7 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
   const profileData: GithubProfileRes = await (
     await fetch("https://api.github.com/users/yangavin")
   ).json();
-  const { html_url, name, avatar_url, public_repos } = profileData;
+  const { public_repos } = profileData;
 
   const contributionsData: Response = await (
     await fetch("https://github-contributions-api.jogruber.de/v4/yangavin")
@@ -66,9 +66,6 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
   );
 
   return {
-    url: html_url,
-    name,
-    avatarUrl: avatar_url,
     repositories: public_repos,
     totalContributions,
   };

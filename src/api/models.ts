@@ -41,9 +41,6 @@ export type TechCard = {
 };
 
 export type GithubProfile = {
-  url: string;
-  name: string;
-  avatarUrl: string;
   repositories: number;
   totalContributions: number;
 };
