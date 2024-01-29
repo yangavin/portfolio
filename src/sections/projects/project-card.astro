@@ -61,7 +61,12 @@ const {
   </div>
 
   <div class="flex items-end justify-end">
-    <a href={repoUrl} title={`${title} repository`} target="_blank">
+    <a
+      href={repoUrl}
+      title={`${title} repository`}
+      target="_blank"
+      class="w-[4.5vh]"
+    >
       <img src="github.svg" alt="GitHub Logo" srcset="" />
     </a>
   </div>
@@ -83,7 +88,7 @@ const {
     font-size: clamp(1.3rem, 2vw, 2rem);
   }
   .description {
-    font-size: clamp(0.7rem, 1.2vw, 1.25rem);
+    font-size: clamp(0.7rem, 3vw, 1.1rem);
   }
   .built-with-title {
     font-size: clamp(0.2rem, 3vw, 1rem);
