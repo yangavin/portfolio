@@ -1,8 +1,8 @@
 # Portfolio Website (WIP)
 
-![Site Preview](public/site-preview.jpeg)
+My personal portfolio website. Check it out!
 
-My personal portfolio website. [Check it out!](https://gavinyan.vercel.app)
+[![Site Preview](public/site-preview.jpeg)](https://gavinyan.vercel.app)
 
 Note that the site is still under development. Extra improvements are still being worked on.
 
