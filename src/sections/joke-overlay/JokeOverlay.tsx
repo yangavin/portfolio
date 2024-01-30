@@ -48,7 +48,6 @@ function JokeOverlay() {
         // Default to this joke if the fetching is too slow
         setQuestion("Why couldn't web developers find their room in a hotel?");
         setPunchline("Because their room number is 404");
-        console.error(err);
       });
 
     return () => clearTimeout(fetchTimeout);
