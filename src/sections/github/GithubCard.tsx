@@ -58,7 +58,7 @@ export default function GithubCard() {
                 </p>
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="text-center">Recent Year's Contributions</h1>
+                <h1 className="text-center">Recent Contributions</h1>
                 {profileData ? (
                   <p>{profileData.totalContributions}</p>
                 ) : (
