@@ -65,11 +65,12 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
   //   0,
   // );
 
-  const contributionsRes = await fetch(
-    "https://github.com/users/yangavin/contributions",
-  );
-  const totalContributions = parseFloat(
-    (await contributionsRes.text()).split("\n")[9].replace(/\s/g, ""),
+  const totalContributions = parseInt(
+    (
+      await (
+        await fetch("https://getcontributions-6v4rdsyaha-uc.a.run.app")
+      ).text()
+    ).replace(/,/g, ""),
   );
 
   return {
