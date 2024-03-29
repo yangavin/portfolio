@@ -65,14 +65,6 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
     0,
   );
 
-  // const totalContributions = parseInt(
-  //   (
-  //     await (
-  //       await fetch("https://getcontributions-6v4rdsyaha-uc.a.run.app")
-  //     ).text()
-  //   ).replace(/,/g, ""),
-  // );
-
   return {
     repositories: public_repos,
     totalContributions,
