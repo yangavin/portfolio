@@ -57,12 +57,20 @@ export default async function getGithubProfile(): Promise<GithubProfile> {
   ).json();
   const { public_repos } = profileData;
 
-  const contributionsData: Response = await (
-    await fetch("https://github-contributions-api.jogruber.de/v4/yangavin")
-  ).json();
-  const totalContributions = Object.values(contributionsData.total).reduce(
-    (acc, curr) => acc + curr,
-    0,
+  // const contributionsData: Response = await (
+  //   await fetch("https://github-contributions-api.jogruber.de/v4/yangavin")
+  // ).json();
+  // const totalContributions = Object.values(contributionsData.total).reduce(
+  //   (acc, curr) => acc + curr,
+  //   0,
+  // );
+
+  const totalContributions = parseInt(
+    (
+      await (
+        await fetch("https://getcontributions-6v4rdsyaha-uc.a.run.app")
+      ).text()
+    ).replace(/,/g, ""),
   );
 
   return {
