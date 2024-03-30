@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function JokeQuestion({
   children,
-  setDone,
+  index,
+  setIndex,
 }: {
   children: string;
-  setDone: () => void;
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
   key: string;
 }) {
-  const [index, setIndex] = useState(0);
   const displayedQuestion = children.slice(0, index);
 
   useEffect(() => {
@@ -18,7 +19,6 @@ function JokeQuestion({
       }, 50);
       return () => clearTimeout(timeout);
     }
-    setDone();
   }, [index]);
 
   return (

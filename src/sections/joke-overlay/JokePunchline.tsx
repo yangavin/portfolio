@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function JokePunchline({
   children,
   showCursor,
-  setDone,
+  start,
+  index,
+  setIndex,
 }: {
   children: string;
   showCursor: boolean;
-  setDone: () => void;
+  start: boolean;
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
   key: string;
 }) {
-  const [index, setIndex] = useState(0);
-  const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
-
-  useEffect(() => {
-    if (showCursor) {
-      const startTimer = setTimeout(() => setStart(true), 3000);
-      return () => clearTimeout(startTimer);
-    }
-  }, [showCursor]);
 
   useEffect(() => {
     if (start && index < children.length) {
@@ -28,7 +23,6 @@ function JokePunchline({
       }, 50);
       return () => clearTimeout(nextCharTimer);
     }
-    if (start) setDone();
   }, [start, index]);
 
   return (
