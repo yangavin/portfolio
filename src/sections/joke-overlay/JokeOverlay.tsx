@@ -107,6 +107,14 @@ function JokeOverlay() {
     }
   }
 
+  useEffect(() => {
+    function spacePressedHandler(event: KeyboardEvent) {
+      if (event.key === " ") handleOverlaySkip();
+    }
+    document.addEventListener("keydown", spacePressedHandler);
+    return () => document.removeEventListener("keydown", spacePressedHandler);
+  }, [question, questionDone, jokeDone, punchlineStart]);
+
   if (question && punchline) {
     return (
       <div
