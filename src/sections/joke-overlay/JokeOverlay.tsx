@@ -32,6 +32,7 @@ function JokeOverlay() {
   const jokeDone = punchline !== "" && punchlineIndex === punchline.length;
 
   const overlay = useRef<HTMLDivElement>(null);
+  const controller = useRef(new AbortController());
 
   useEffect(() => {
     const body = document.querySelector("body")!;
@@ -44,13 +45,12 @@ function JokeOverlay() {
   }
 
   useEffect(() => {
-    const controller = new AbortController();
-    const fetchTimeout = setTimeout(() => controller.abort(), 3000);
+    const fetchTimeout = setTimeout(() => controller.current.abort(), 3000);
 
     fetch(
       "https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,racist,sexist,explicit&type=twopart",
       {
-        signal: controller.signal,
+        signal: controller.current.signal,
       },
     )
       .then((res) => res.json())
@@ -59,11 +59,14 @@ function JokeOverlay() {
         setPunchline(jokeData.delivery);
       })
       .catch(() => {
-        // Default to this joke if the fetching is too slow
+        // Either the fetch timed out or the user aborted the fetch
         setFallbackJoke();
       });
 
-    return () => clearTimeout(fetchTimeout);
+    return () => {
+      clearTimeout(fetchTimeout);
+      controller.current.abort();
+    };
   }, []);
 
   function fadeOutOverlay() {
@@ -86,9 +89,9 @@ function JokeOverlay() {
     }
   }, [questionDone]);
 
-  function handleOverlayClick() {
+  function handleOverlaySkip() {
     if (!question) {
-      setFallbackJoke();
+      controller.current.abort();
     }
     if (!questionDone) {
       return setQuestionIndex(question.length);
@@ -107,7 +110,7 @@ function JokeOverlay() {
   if (question && punchline) {
     return (
       <div
-        onClick={handleOverlayClick}
+        onClick={handleOverlaySkip}
         ref={overlay}
         className="fixed z-10 flex h-full w-full select-none flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
       >
@@ -134,6 +137,7 @@ function JokeOverlay() {
   return (
     <div
       ref={overlay}
+      onClick={handleOverlaySkip}
       className="fixed z-10 flex h-full w-full select-none flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
     >
       <h1 className="w-3/4 text-center text-2xl md:text-3xl lg:text-7xl lg:leading-snug">
