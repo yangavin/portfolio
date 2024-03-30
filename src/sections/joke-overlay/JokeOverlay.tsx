@@ -80,11 +80,11 @@ function JokeOverlay() {
   }, [jokeDone]);
 
   useEffect(() => {
-    if (jokeDone) {
-      const startTimer = setTimeout(() => setPunchlineStart(true), 3000);
+    if (questionDone) {
+      const startTimer = setTimeout(() => setPunchlineStart(true), 2000);
       return () => clearTimeout(startTimer);
     }
-  }, [jokeDone]);
+  }, [questionDone]);
 
   function handleOverlayClick() {
     if (!question) {
