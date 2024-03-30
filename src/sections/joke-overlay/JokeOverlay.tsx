@@ -24,8 +24,11 @@ type Joke = {
 function JokeOverlay() {
   const [question, setQuestion] = useState("");
   const [punchline, setPunchline] = useState("");
-  const [questionDone, setQuestionDone] = useState(false);
-  const [jokeDone, setJokeDone] = useState(false);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [punchlineIndex, setPunchlineIndex] = useState(0);
+
+  const questionDone = question !== "" && questionIndex === question.length;
+  const jokeDone = punchline !== "" && punchlineIndex === punchline.length;
 
   const overlay = useRef<HTMLDivElement>(null);
 
@@ -75,13 +78,18 @@ function JokeOverlay() {
         ref={overlay}
         className="fixed z-10 flex h-full w-full flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
       >
-        <JokeQuestion setDone={() => setQuestionDone(true)} key={question}>
+        <JokeQuestion
+          index={questionIndex}
+          setIndex={setQuestionIndex}
+          key={question}
+        >
           {question}
         </JokeQuestion>
         <hr className="w-9/12 border-black" />
         <JokePunchline
           showCursor={questionDone}
-          setDone={() => setJokeDone(true)}
+          index={punchlineIndex}
+          setIndex={setPunchlineIndex}
           key={punchline}
         >
           {punchline}

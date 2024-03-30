@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 function JokePunchline({
   children,
   showCursor,
-  setDone,
+  index,
+  setIndex,
 }: {
   children: string;
   showCursor: boolean;
-  setDone: () => void;
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
   key: string;
 }) {
-  const [index, setIndex] = useState(0);
   const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
 
@@ -28,7 +29,6 @@ function JokePunchline({
       }, 50);
       return () => clearTimeout(nextCharTimer);
     }
-    if (start) setDone();
   }, [start, index]);
 
   return (
