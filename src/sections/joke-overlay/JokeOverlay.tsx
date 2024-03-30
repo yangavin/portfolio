@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import JokeQuestion from "./JokeQuestion";
 import JokePunchline from "./JokePunchline";
 
@@ -89,23 +89,26 @@ function JokeOverlay() {
     }
   }, [questionDone]);
 
-  function handleOverlaySkip() {
-    if (!question) {
-      controller.current.abort();
-    }
-    if (!questionDone) {
-      return setQuestionIndex(question.length);
-    }
-    if (!jokeDone) {
-      if (!punchlineStart) {
-        return setPunchlineStart(true);
+  const handleOverlaySkip = useCallback(
+    function handleOverlaySkip() {
+      if (!question) {
+        controller.current.abort();
       }
-      return setPunchlineIndex(punchline.length);
-    }
-    if (jokeDone) {
-      fadeOutOverlay();
-    }
-  }
+      if (!questionDone) {
+        return setQuestionIndex(question.length);
+      }
+      if (!jokeDone) {
+        if (!punchlineStart) {
+          return setPunchlineStart(true);
+        }
+        return setPunchlineIndex(punchline.length);
+      }
+      if (jokeDone) {
+        fadeOutOverlay();
+      }
+    },
+    [question, questionDone, jokeDone, punchlineStart],
+  );
 
   useEffect(() => {
     function spacePressedHandler(event: KeyboardEvent) {
@@ -113,7 +116,7 @@ function JokeOverlay() {
     }
     document.addEventListener("keydown", spacePressedHandler);
     return () => document.removeEventListener("keydown", spacePressedHandler);
-  }, [question, questionDone, jokeDone, punchlineStart]);
+  }, [handleOverlaySkip]);
 
   if (question && punchline) {
     return (
