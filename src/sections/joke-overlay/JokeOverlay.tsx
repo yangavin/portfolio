@@ -26,6 +26,7 @@ function JokeOverlay() {
   const [punchline, setPunchline] = useState("");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [punchlineIndex, setPunchlineIndex] = useState(0);
+  const [punchlineStart, setPunchlineStart] = useState(false);
 
   const questionDone = question !== "" && questionIndex === question.length;
   const jokeDone = punchline !== "" && punchlineIndex === punchline.length;
@@ -78,15 +79,24 @@ function JokeOverlay() {
     }
   }, [jokeDone]);
 
+  useEffect(() => {
+    if (jokeDone) {
+      const startTimer = setTimeout(() => setPunchlineStart(true), 3000);
+      return () => clearTimeout(startTimer);
+    }
+  }, [jokeDone]);
+
   function handleOverlayClick() {
     if (!question) {
       setFallbackJoke();
-      return setQuestionIndex(question.length);
     }
     if (!questionDone) {
       return setQuestionIndex(question.length);
     }
     if (!jokeDone) {
+      if (!punchlineStart) {
+        return setPunchlineStart(true);
+      }
       return setPunchlineIndex(punchline.length);
     }
     if (jokeDone) {
@@ -111,6 +121,7 @@ function JokeOverlay() {
         <hr className="w-9/12 border-black" />
         <JokePunchline
           showCursor={questionDone}
+          start={punchlineStart}
           index={punchlineIndex}
           setIndex={setPunchlineIndex}
           key={punchline}

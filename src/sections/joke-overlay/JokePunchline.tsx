@@ -3,24 +3,18 @@ import { useEffect, useState } from "react";
 function JokePunchline({
   children,
   showCursor,
+  start,
   index,
   setIndex,
 }: {
   children: string;
   showCursor: boolean;
+  start: boolean;
   index: number;
   setIndex: React.Dispatch<React.SetStateAction<number>>;
   key: string;
 }) {
-  const [start, setStart] = useState(false);
   const displayedPunchline = children.slice(0, index);
-
-  useEffect(() => {
-    if (showCursor) {
-      const startTimer = setTimeout(() => setStart(true), 3000);
-      return () => clearTimeout(startTimer);
-    }
-  }, [showCursor]);
 
   useEffect(() => {
     if (start && index < children.length) {
