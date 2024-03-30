@@ -113,7 +113,7 @@ function JokeOverlay() {
     }
     document.addEventListener("keydown", spacePressedHandler);
     return () => document.removeEventListener("keydown", spacePressedHandler);
-  }, [question, questionDone, jokeDone, punchlineStart]);
+  }, [handleOverlaySkip]);
 
   if (question && punchline) {
     return (
