@@ -13,6 +13,14 @@ Note that the site is still under development. Extra improvements are still bein
 - Tailwind
 - Contentful (CMS)
 
+## APIs
+
+The site uses the following APIs
+
+- [JokeAPI](https://v2.jokeapi.dev/)
+- [GitHub Contributions](https://github.com/grubersjoe/github-contributions-api)
+- GitHub's official HTTP API for profile information
+
 ## How It All Works
 
 The site is built with Astro, a JavaScript framework known for shipping 0 Javascript unless otherwise specified. This improves performance and SEO, while allowing interactive "islands" that can be built with other JavaScript frameworks such as React.
