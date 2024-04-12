@@ -39,6 +39,13 @@ export type skillSkeleton = {
   };
 };
 
+export type projectListSkeleton = {
+  contentTypeId: "project";
+  fields: {
+    list: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<ProjectSkeleton>>;
+  };
+};
+
 export type Asset = {
   fields: {
     file: {
