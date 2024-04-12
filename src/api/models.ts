@@ -24,6 +24,22 @@ export type ProjectSkeleton = {
   };
 };
 
+export type skillSkeleton = {
+  contentTypeId: "skill";
+  fields: {
+    title: EntryFieldTypes.Text;
+    languages: EntryFieldTypes.Array<
+      EntryFieldTypes.EntryLink<TechCardSkeleton>
+    >;
+    technologies: EntryFieldTypes.Array<
+      EntryFieldTypes.EntryLink<TechCardSkeleton>
+    >;
+    devTools: EntryFieldTypes.Array<
+      EntryFieldTypes.EntryLink<TechCardSkeleton>
+    >;
+  };
+};
+
 export type Asset = {
   fields: {
     file: {
