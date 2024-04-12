@@ -1,5 +1,5 @@
 import { contentfulClient } from "../lib/contentful";
-import type { ProjectSkeleton, Asset, TechCard } from "./models";
+import type { Asset, TechCard, projectListSkeleton } from "./models";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { Options } from "@contentful/rich-text-html-renderer";
 import { INLINES } from "@contentful/rich-text-types";
@@ -15,23 +15,23 @@ const aTagRenderingOption: Options = {
 };
 
 async function getProjectCards() {
-  const rawProjects = await contentfulClient.getEntries<ProjectSkeleton>({
-    content_type: "projectCard",
-    order: ["sys.createdAt"],
-  });
-
-  return rawProjects.items.map((projectCard) => {
+  const projects =
+    await contentfulClient.withoutUnresolvableLinks.getEntry<projectListSkeleton>(
+      "oTeBlPqpJ6iSWrZ0niI8v",
+      { include: 2 },
+    );
+  return projects.fields.list.map((projectCard) => {
     return {
-      ...projectCard.fields,
-      logo: `https:${(projectCard.fields.logo as Asset).fields.file.url}`,
-      techUsed: (projectCard.fields.techUsed as TechCard[]).map((techCard) => {
+      ...projectCard!.fields,
+      logo: `https:${(projectCard!.fields.logo as Asset).fields.file.url}`,
+      techUsed: (projectCard!.fields.techUsed as TechCard[]).map((techCard) => {
         return {
           ...techCard.fields,
           logo: `https:${techCard.fields.logo.fields.file.url}`,
         };
       }),
       description: documentToHtmlString(
-        projectCard.fields.description,
+        projectCard!.fields.description,
         aTagRenderingOption,
       ),
     };

@@ -1,10 +1,10 @@
 ---
-import getTechCardsByTags from "../../api/getTechCardsByTags";
+import getTechCardsByCategory from "../../api/getTechCardsByCategory";
 import Category from "./category.astro";
 
-const languages = await getTechCardsByTags(["language"]);
-const technologies = await getTechCardsByTags(["technology"]);
-const devTools = await getTechCardsByTags(["devTool"]);
+const languages = await getTechCardsByCategory("languages");
+const technologies = await getTechCardsByCategory("technologies");
+const devTools = await getTechCardsByCategory("devTools");
 ---
 
 <div>
