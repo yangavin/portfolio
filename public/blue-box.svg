@@ -1,4 +1,4 @@
-<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" width="400" height="200" xmlns="http://www.w3.org/2000/svg">
   <!-- Blue triangle on the top -->
   <polygon points="0,0 400,0 400,200" fill="rgb(147, 197, 253)" />
 
