@@ -41,7 +41,7 @@ import GithubCard from "../sections/github/GithubCard";
   </head>
   <body class="overflow-x-hidden bg-orange-100 font-jua text-neutral-600">
     <JokeOverlay client:load />
-    <img class="ml-auto h-[15vw] w-3/5" src="blue-box.svg" alt="" />
+    <img class="blue-box ml-auto h-[15vw] w-3/5" src="blue-box.svg" alt="" />
     <Title />
 
     <main class="relative my-12 md:mt-28 lg:mt-48">
@@ -91,6 +91,19 @@ import GithubCard from "../sections/github/GithubCard";
     }
     .small-description {
       font-size: 0.7em;
+    }
+    .rotate {
+      animation: rotate 1.5s ease-out forwards;
+    }
+    @keyframes rotate {
+      0% {
+        transform: rotate(-90deg);
+        transform-origin: 0 -50%;
+      }
+      100% {
+        transform: rotate(0deg);
+        transform-origin: 0 -50%;
+      }
     }
   </style>
 </html>

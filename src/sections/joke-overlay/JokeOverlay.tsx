@@ -73,6 +73,8 @@ function JokeOverlay() {
     overlay.current?.classList.add("animate-slide-out");
     const body = document.querySelector("body")!;
     body.style.overflowY = "auto";
+    const blueBox = document.querySelector(".blue-box")!;
+    blueBox.classList.add("rotate");
   }
 
   useEffect(() => {
