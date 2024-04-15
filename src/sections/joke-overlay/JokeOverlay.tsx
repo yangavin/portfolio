@@ -75,6 +75,10 @@ function JokeOverlay() {
     body.style.overflowY = "auto";
     const blueBox = document.querySelector(".blue-box")!;
     blueBox.classList.add("rotate");
+    const titles = document.querySelectorAll(".title")!;
+    titles.forEach((title) => title.classList.add("slide-in"));
+    const bar = document.querySelector(".bar")!;
+    bar.classList.add("grow");
   }
 
   useEffect(() => {

@@ -1,10 +1,56 @@
 <div class="mb-16 pl-3 font-quicksand leading-none">
-  <div class="pb-4">
-    <h2 class="pl-[1.5vw] text-[4vw] font-thin">CS Student</h2>
-    <h2 class="pl-[1.5vw] text-[4vw] font-thin">Queen's University</h2>
+  <div>
+    <h2 class="title pl-[1.5vw] text-[4vw] font-thin">CS Student</h2>
+    <h2 class="title pb-4 pl-[1.5vw] text-[4vw] font-thin">
+      Queen's University
+    </h2>
+    <h1 class="title mb-[.4em] text-[17vw] font-light">Gavin Yan</h1>
   </div>
-  <div class="text-[17vw]">
-    <h1 class="mb-[.4em] font-light">Gavin Yan</h1>
-    <hr class="-ml-8 -rotate-6 border-black bg-black md:border-2" />
-  </div>
+  <hr class="bar -ml-8 border-black bg-black md:border-2" />
 </div>
+
+<style>
+  .title {
+    opacity: 0;
+  }
+  .bar {
+    opacity: 0;
+  }
+  .slide-in {
+    animation: slideFromLeft 1s forwards;
+  }
+  .grow {
+    animation: grow 1s ease-out forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes slideFromLeft {
+    0% {
+      transform: translateX(-100%);
+      filter: blur(10px);
+      opacity: 0;
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+  @keyframes grow {
+    0% {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleX(1) rotate(-6deg);
+    }
+  }
+
+  .slide-in:nth-child(2) {
+    animation-delay: 0.25s;
+  }
+
+  .slide-in:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+</style>
