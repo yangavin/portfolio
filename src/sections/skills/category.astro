@@ -12,13 +12,15 @@ const { skills, small } = Astro.props;
 
 <div>
   <h2 class="mb-5 mt-10 text-center"><slot /></h2>
-  <div class="m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-6">
+  <div
+    class="container m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-6"
+  >
     {
       skills.map(({ logo, title, url }) => {
         return (
           <a
             href={url}
-            class={`flex w-fit grow flex-col items-center gap-2 ${
+            class={`flex w-fit grow -translate-x-full flex-col items-center gap-2 opacity-0 blur-sm transition-all duration-300 ${
               small ? "small" : ""
             }`}
             target="_blank"
@@ -33,6 +35,14 @@ const { skills, small } = Astro.props;
 </div>
 
 <style>
+  .slide-in {
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .hover-class:hover {
+    transform: translateY(-10px);
+  }
   h2 {
     font-size: clamp(1.5rem, 5vw, 3rem);
   }
@@ -49,3 +59,58 @@ const { skills, small } = Astro.props;
     font-size: clamp(1rem, 2vw, 2rem);
   }
 </style>
+
+<script>
+  // At most one timeout per category at any given time
+  const categoryTimeouts = new Map<Element, number>();
+  const categoryContainerObserver = new IntersectionObserver(
+    (categories) => {
+      categories.forEach((category) => {
+        const cards = category.target.children as HTMLCollectionOf<HTMLElement>;
+        const longestDelaySeconds = (cards.length - 1) * 0.05;
+
+        if (category.isIntersecting) {
+          for (let i = 0; i < cards.length; i++) {
+            cards[i].style.transitionDelay = `${i * 0.05}s`;
+            cards[i].classList.add("slide-in");
+          }
+          // Clear any existing timeout for this category
+          const existingTimeout = categoryTimeouts.get(category.target);
+          if (existingTimeout) {
+            clearTimeout(existingTimeout);
+          }
+          const transitionDoneTimeout = setTimeout(
+            () => {
+              for (let i = 0; i < cards.length; i++) {
+                cards[i].style.transitionDelay = "0s";
+                cards[i].classList.add("hover-class");
+              }
+              // Remove the timeout from the map when it's done
+              categoryTimeouts.delete(category.target);
+            },
+            longestDelaySeconds * 1000 * 2,
+          );
+          // Store the timeout for this category
+          categoryTimeouts.set(category.target, transitionDoneTimeout);
+        } else {
+          for (let i = 0; i < cards.length; i++) {
+            cards[i].style.transitionDelay = "0s";
+            cards[i].classList.remove("slide-in");
+            cards[i].classList.remove("hover-class");
+          }
+          // Clear the timeout if the category is not intersecting
+          const existingTimeout = categoryTimeouts.get(category.target);
+          if (existingTimeout) {
+            clearTimeout(existingTimeout);
+            categoryTimeouts.delete(category.target);
+          }
+        }
+      });
+    },
+    { threshold: 0.25 },
+  );
+  const containers = document.querySelectorAll(".container")!;
+  containers.forEach((container) => {
+    categoryContainerObserver.observe(container);
+  });
+</script>
