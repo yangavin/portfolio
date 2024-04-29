@@ -14,17 +14,19 @@ type Props = {
     color: string;
   };
   mobile: boolean;
+  evenIndex: boolean;
 };
 const {
   project: { logo, techUsed, title, projectUrl, description, repoUrl, color },
   mobile,
+  evenIndex,
 } = Astro.props;
 ---
 
 <div
-  class={`container px-[5%] pb-[2%] pt-4 ${color} ${
+  class={`container px-[5%] pb-[2%] pt-4 opacity-0 blur-sm transition-all duration-1000 ${color} ${
     mobile ? "mobile-container" : ""
-  }`}
+  } ${evenIndex ? "-translate-x-full" : "translate-x-full"}`}
 >
   <h1 class="title">{title}</h1>
 
@@ -73,6 +75,11 @@ const {
 </div>
 
 <style>
+  .slide-in {
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateX(0);
+  }
   .container {
     border-radius: 0.4375rem;
     display: grid;
@@ -136,3 +143,19 @@ const {
     );
   }
 </style>
+<script>
+  const projectCardObserver = new IntersectionObserver(
+    (projectCards) => {
+      projectCards.forEach((projectCard) => {
+        if (projectCard.isIntersecting) {
+          projectCard.target.classList.add("slide-in");
+        }
+      });
+    },
+    { rootMargin: "-20% 0% -20% 0%" },
+  );
+  const projectCards = document.querySelectorAll(".container");
+  projectCards.forEach((projectCard) => {
+    projectCardObserver.observe(projectCard);
+  });
+</script>
