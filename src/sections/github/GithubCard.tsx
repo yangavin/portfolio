@@ -99,7 +99,7 @@ export default function GithubCard() {
           <a
             href="https://www.linkedin.com/in/gavin-yan-6b488725b/"
             target="_blank"
-            className="hover:-translate-y-1 transition-all"
+            className="hover:-translate-y-1 transition-all duration-1000"
           >
             <img src="linkedin.svg" alt="LinkedIn Logo" />
           </a>
