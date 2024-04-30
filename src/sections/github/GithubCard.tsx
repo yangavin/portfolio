@@ -40,7 +40,7 @@ export default function GithubCard() {
       <a
         href="https://github.com"
         target="_blank"
-        className="m-auto mb-5 block max-w-20 translate-y-28 transition-all duration-1000 z-0 hover:-translate-y-1"
+        className="m-auto mb-5 block max-w-20 translate-y-28 transition-all duration-1000 hover:-translate-y-1"
         ref={githubLogo}
       >
         <img src="named-github.svg" alt="GitHub Logo" />
