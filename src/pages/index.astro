@@ -64,7 +64,7 @@ import GithubCard from "../sections/github/GithubCard";
           <h1>Website's Source Code</h1>
           <h2 class="small-description">I had a lot of fun building this.</h2>
         </div>
-        <div class="mx-[2vw]">
+        <div class="horizontal-bounce mx-[2vw]">
           <svg
             fill="rgb(226 232 240)"
             xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +79,9 @@ import GithubCard from "../sections/github/GithubCard";
           href="https://github.com/yangavin/portfolio"
           target="_blank"
           class="w-[17%]"
-          class="w-8"><img src="white-github.svg" alt="GitHub Logo" /></a
         >
+          <img src="white-github.svg" alt="GitHub Logo" />
+        </a>
       </div>
     </footer>
   </body>
@@ -103,6 +104,20 @@ import GithubCard from "../sections/github/GithubCard";
       100% {
         transform: rotate(0deg);
         transform-origin: 0 -50%;
+      }
+    }
+    .horizontal-bounce {
+      animation: horizontal-bounce 2s infinite;
+    }
+    @keyframes horizontal-bounce {
+      0% {
+        transform: translateX(0px);
+      }
+      25% {
+        transform: translateX(10px);
+      }
+      50% {
+        transform: translateX(0px);
       }
     }
   </style>
