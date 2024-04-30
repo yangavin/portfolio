@@ -22,7 +22,7 @@ const {
 ---
 
 <div
-  class={`container px-[5%] pb-[2%] pt-4 opacity-0 blur-sm transition-all duration-700 ${color} ${
+  class={`container px-[5%] pb-[2%] pt-4 opacity-0 blur-sm transition-all duration-700 border-2 border-gray-800 ${color} ${
     mobile ? "mobile-container" : ""
   } translate-y-44 `}
 >
@@ -108,12 +108,18 @@ const {
       rgba(221, 208, 255, 0.6) 58.67%
     );
   }
+  .purple:hover {
+    border: solid 2px #572dca;
+  }
   .blue {
     background: linear-gradient(
       119deg,
       #4ddfff 1.7%,
       rgba(188, 255, 251, 0.6) 58.67%
     );
+  }
+  .blue:hover {
+    border: solid 2px #23859b;
   }
   .yellow {
     background: linear-gradient(
@@ -122,12 +128,18 @@ const {
       rgba(255, 248, 188, 0.6) 58.67%
     );
   }
+  .yellow:hover {
+    border: solid 2px #af9723;
+  }
   .green {
     background: linear-gradient(
       119deg,
       #91ff75 1.7%,
       rgba(183, 255, 185, 0.6) 58.67%
     );
+  }
+  .green:hover {
+    border: solid 2px #33821f;
   }
   .orange {
     background: linear-gradient(
@@ -136,12 +148,18 @@ const {
       rgba(255, 226, 183, 0.6) 58.67%
     );
   }
+  .orange:hover {
+    border: solid 2px #b77728;
+  }
   .red {
     background: linear-gradient(
       119deg,
       #ff7575 1.7%,
       rgba(255, 183, 183, 0.6) 58.67%
     );
+  }
+  .red:hover {
+    border: solid 2px #902222;
   }
 </style>
 <script>
