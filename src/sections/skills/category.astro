@@ -62,7 +62,6 @@ const { skills, small } = Astro.props;
 
 <script>
   // At most one timeout per category at any given time
-  const categoryTimeouts = new Map<Element, number>();
   const categoryContainerObserver = new IntersectionObserver(
     (categories) => {
       categories.forEach((category) => {
@@ -74,36 +73,15 @@ const { skills, small } = Astro.props;
             cards[i].style.transitionDelay = `${i * 0.05}s`;
             cards[i].classList.add("slide-in");
           }
-          // Clear any existing timeout for this category
-          const existingTimeout = categoryTimeouts.get(category.target);
-          if (existingTimeout) {
-            clearTimeout(existingTimeout);
-          }
-          const transitionDoneTimeout = setTimeout(
+          setTimeout(
             () => {
               for (let i = 0; i < cards.length; i++) {
                 cards[i].style.transitionDelay = "0s";
                 cards[i].classList.add("hover-class");
               }
-              // Remove the timeout from the map when it's done
-              categoryTimeouts.delete(category.target);
             },
             longestDelaySeconds * 1000 * 2,
           );
-          // Store the timeout for this category
-          categoryTimeouts.set(category.target, transitionDoneTimeout);
-        } else {
-          for (let i = 0; i < cards.length; i++) {
-            cards[i].style.transitionDelay = "0s";
-            cards[i].classList.remove("slide-in");
-            cards[i].classList.remove("hover-class");
-          }
-          // Clear the timeout if the category is not intersecting
-          const existingTimeout = categoryTimeouts.get(category.target);
-          if (existingTimeout) {
-            clearTimeout(existingTimeout);
-            categoryTimeouts.delete(category.target);
-          }
         }
       });
     },
