@@ -18,12 +18,12 @@ const content = await contentfulClient.getEntry<paragraphs>(
 <div class="relative px-8">
   <img
     src="yellow-cylinder.svg"
-    class="yellow-cylinder absolute left-0 top-1/3 -z-10"
+    class="yellow-cylinder absolute left-0 top-1/3 -z-10 rotate-[30deg] transition-transform duration-[1500ms] ease-out"
     alt=""
   />
   <img
     src="red-ellipse.svg"
-    class="red-ellipse absolute right-0 top-2/3 -z-10"
+    class="red-ellipse absolute right-0 top-2/3 -z-10 -rotate-[25deg] transition-transform duration-[1500ms] ease-out"
     alt=""
   />
   <h1 class="mb-10 text-[11vw]">About Me</h1>
@@ -37,31 +37,9 @@ const content = await contentfulClient.getEntry<paragraphs>(
   .clamp-text {
     font-size: clamp(1rem, 2.5vw, 1.7rem);
   }
-  .rotate-from-left {
-    animation: rotate-from-left 1s ease-out forwards;
-  }
-  .rotate-from-right {
-    animation: rotate-from-right 1s ease-out forwards;
-  }
-  @keyframes rotate-from-left {
-    0% {
-      transform: rotate(30deg);
-      transform-origin: 0 -50%;
-    }
-    100% {
-      transform: rotate(0deg);
-      transform-origin: 0 -50%;
-    }
-  }
-  @keyframes rotate-from-right {
-    0% {
-      transform: rotate(-25deg);
-      transform-origin: 0 -50%;
-    }
-    100% {
-      transform: rotate(0deg);
-      transform-origin: 0 -50%;
-    }
+  .red-ellipse,
+  .yellow-cylinder {
+    transform-origin: 0 -50%;
   }
 </style>
 
@@ -69,18 +47,18 @@ const content = await contentfulClient.getEntry<paragraphs>(
   const yellowCylinderObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("rotate-from-left");
+        entry.target.classList.remove("rotate-[30deg]");
       } else {
-        entry.target.classList.remove("rotate-from-left");
+        entry.target.classList.add("rotate-[30deg]");
       }
     });
   });
   const redEllipseObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("rotate-from-right");
+        entry.target.classList.remove("-rotate-[25deg]");
       } else {
-        entry.target.classList.remove("rotate-from-right");
+        entry.target.classList.add("-rotate-[25deg]");
       }
     });
   });
