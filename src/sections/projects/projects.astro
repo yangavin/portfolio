@@ -42,7 +42,7 @@ const projects = await getProjectCards();
   <!-- Mobile View -->
   <div class="mobile flex flex-col items-center gap-20 px-5">
     {
-      projects.map((project) => {
+      projects.map((project, index) => {
         return <ProjectCard project={project} mobile />;
       })
     }
@@ -50,7 +50,7 @@ const projects = await getProjectCards();
 </div>
 
 <style>
-  @media (min-width: 1000px) {
+  @media (min-width: 1001px) {
     .mobile {
       display: none;
     }
