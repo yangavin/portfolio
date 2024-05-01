@@ -20,7 +20,7 @@ export type ProjectSkeleton = {
       EntryFieldTypes.EntryLink<TechCardSkeleton>
     >;
     repoUrl: EntryFieldTypes.Text;
-    color: EntryFieldTypes.Text;
+    hue: EntryFieldTypes.Text;
   };
 };
 
