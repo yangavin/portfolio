@@ -2,7 +2,7 @@
 
 My personal portfolio website. Check it out!
 
-[![Site Preview](public/site-preview.jpeg)](https://gavinyan.vercel.app)
+[![Site Preview](public/site-preview.jpeg)](https://gavinyan.me)
 
 Note that the site is still under development. Extra improvements are still being worked on.
 
