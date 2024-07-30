@@ -47,7 +47,7 @@ export default function GithubCard() {
       </a>
       <div className="m-auto w-9/12 max-w-xl relative z-10">
         <a href="https://github.com/yangavin" target="_blank">
-          <div className="flex flex-col items-center justify-evenly gap-12 rounded-md bg-gray-700 px-8 py-12 md:flex-row md:gap-0 hover:border-slate-800 border-2 border-gray-500 transition-all">
+          <div className="flex flex-col items-center justify-evenly gap-12 rounded-md bg-gray-700 px-8 py-12 md:flex-row md:gap-0 hover:border-gray-500 border-2 border-slate-800 transition-all">
             <div className="flex flex-col items-center gap-5">
               <img
                 src="https://avatars.githubusercontent.com/u/120120964?v=4"
