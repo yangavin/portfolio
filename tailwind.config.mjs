@@ -5,7 +5,6 @@ export default {
     extend: {
       fontFamily: {
         quicksand: ["Quicksand"],
-        jua: ["Jua"],
       },
       animation: {
         "slide-out": "slideOut 1.5s ease-in-out 1 forwards",
