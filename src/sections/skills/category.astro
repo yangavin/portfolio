@@ -6,23 +6,24 @@ type Props = {
     url: string;
   }[];
   small?: boolean;
+  language?: boolean;
 };
-const { skills, small } = Astro.props;
+const { skills, small, language } = Astro.props;
 ---
 
 <div>
-  <h2 class="mb-5 mt-10 text-center"><slot /></h2>
+  <h2 class="mb-10 mt-10 text-center"><slot /></h2>
   <div
-    class="container m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-6"
+    class="container m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-9 md:gap-x-16 md:gap-y-16"
   >
     {
       skills.map(({ logo, title, url }) => {
         return (
           <a
             href={url}
-            class={`flex w-fit grow -translate-x-full flex-col items-center gap-2 opacity-0 blur-sm transition-all duration-300 ${
+            class={`flex -translate-x-full flex-col items-center gap-2 opacity-0 blur-sm transition-all duration-300 ${
               small ? "small" : ""
-            }`}
+            } ${language ? "md:w-40" : ""}`}
             target="_blank"
           >
             <img src={logo} alt={`${title} Logo`} class="drop-shadow-xl" />
@@ -47,7 +48,7 @@ const { skills, small } = Astro.props;
     font-size: clamp(1.5rem, 5vw, 3rem);
   }
   span {
-    font-size: clamp(1rem, 2.5vw, 3rem);
+    font-size: clamp(1rem, 2.5vw, 2.5rem);
   }
   img {
     width: clamp(3rem, 10vw, 7rem);

@@ -27,7 +27,7 @@ const content = await contentfulClient.getEntry<paragraphs>(
     class="red-ellipse absolute right-0 top-1/2 -z-10 transition-transform duration-[1500ms] ease-out lg:top-2/3"
     alt=""
   />
-  <h1 class="mb-10 text-[11vw]">About Me</h1>
+  <h1 class="mb-10">About Me</h1>
   <div
     class="clamp-text relative m-auto flex max-w-[58ch] flex-col gap-[3ch]"
     set:html={documentToHtmlString(content.fields.content, {
@@ -48,6 +48,9 @@ const content = await contentfulClient.getEntry<paragraphs>(
   .red-ellipse,
   .yellow-cylinder {
     transform-origin: 0 -50%;
+  }
+  h1 {
+    font-size: clamp(1rem, 11vw, 11rem);
   }
 </style>
 

@@ -6,7 +6,7 @@ const projects = await getProjectCards();
 ---
 
 <div>
-  <h1 class="text-center text-[11vw]">Projects</h1>
+  <h1 class="text-center">Projects</h1>
 
   <hr class="m-auto w-1/2 border-neutral-600 bg-black md:border-2" />
 
@@ -62,5 +62,8 @@ const projects = await getProjectCards();
   }
   .clamp-text {
     font-size: clamp(1rem, 3vw, 3rem);
+  }
+  h1 {
+    font-size: clamp(1rem, 11vw, 11rem);
   }
 </style>
