@@ -35,7 +35,7 @@ const colorTo = `hsl(${hue}, 100%, 95%)`;
       href={projectUrl}
       title={`Launch ${title}`}
       target="_blank"
-      class="w-[30%] duration-700 hover:-translate-y-1"
+      class="duration-700"
     >
       <img src="goto.svg" alt="Go-to-link image" srcset="" />
     </a>
@@ -95,7 +95,7 @@ const colorTo = `hsl(${hue}, 100%, 95%)`;
     display: grid;
     grid-template-columns: 60% 1fr;
     column-gap: 3rem;
-    grid-template-rows: 2rem 3fr 1fr;
+    grid-template-rows: 2.5rem 3fr 1fr;
     background: linear-gradient(
       to bottom right,
       var(--colorFrom),
@@ -103,7 +103,7 @@ const colorTo = `hsl(${hue}, 100%, 95%)`;
     );
   }
   .container:hover {
-    transform: translateY(-10px);
+    transform: translateY(-2px);
   }
   .mobile-container {
     column-gap: 1rem;
