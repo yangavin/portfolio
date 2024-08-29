@@ -97,7 +97,7 @@ export default function GithubCard() {
         <h1 className="mb-4 text-center">Feel free to Connect!</h1>
         <div className="flex justify-evenly">
           <a
-            href="https://www.linkedin.com/in/gavin-yan-6b488725b/"
+            href="https://www.linkedin.com/in/yangavin"
             target="_blank"
             className="hover:-translate-y-1 transition-all duration-1000"
           >
