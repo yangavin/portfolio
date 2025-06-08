@@ -7,7 +7,7 @@ const technologies = await getTechCardsByCategory("technologies");
 const devTools = await getTechCardsByCategory("devTools");
 ---
 
-<div>
+<div class="skills-container mx-auto px-2 md:px-8">
   <h1 class="text-center">Skills</h1>
 
   <hr class="m-auto w-1/2 border-neutral-600 bg-black md:border-2" />
@@ -19,6 +19,17 @@ const devTools = await getTechCardsByCategory("devTools");
 </div>
 
 <style>
+  .skills-container {
+    width: 100%;
+    max-width: 1500px;
+  }
+  @media (max-width: 768px) {
+    .skills-container {
+      max-width: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
   h1 {
     font-size: clamp(1rem, 11vw, 11rem);
   }

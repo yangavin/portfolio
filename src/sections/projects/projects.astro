@@ -5,7 +5,7 @@ import ProjectCard from "./project-card.astro";
 const projects = await getProjectCards();
 ---
 
-<div>
+<div class="projects-container mx-auto px-2 md:px-8">
   <h1 class="text-center">Projects</h1>
 
   <hr class="m-auto w-1/2 border-neutral-600 bg-black md:border-2" />
@@ -50,6 +50,17 @@ const projects = await getProjectCards();
 </div>
 
 <style>
+  .projects-container {
+    width: 100%;
+    max-width: 1700px;
+  }
+  @media (max-width: 768px) {
+    .projects-container {
+      max-width: 100%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
   @media (min-width: 1001px) {
     .mobile {
       display: none;
