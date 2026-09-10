@@ -7,27 +7,43 @@ const technologies = await getTechCardsByCategory("technologies");
 const devTools = await getTechCardsByCategory("devTools");
 ---
 
-<div class="skills-container mx-auto px-2 md:px-8">
+<div class="skills-container mx-auto">
   <h1 class="text-center">Skills</h1>
 
   <hr class="m-auto w-1/2 border-neutral-600 bg-black md:border-2" />
-  <div class="flex flex-col gap-3 md:gap-20">
-    <Category skills={languages} language>Languages</Category>
-    <Category skills={technologies}>Technologies</Category>
-    <Category skills={devTools} small>Dev Tools</Category>
+  <div class="skill-categories">
+    <Category
+      skills={languages}
+      id="skills-languages"
+      title="Languages"
+      tone="sand"
+    />
+    <Category
+      skills={technologies}
+      id="skills-technologies"
+      title="Technologies"
+      tone="blue"
+    />
+    <Category skills={devTools} id="skills-tools" title="Tools" tone="rose" />
   </div>
 </div>
 
 <style>
   .skills-container {
     width: 100%;
-    max-width: 1500px;
+    max-width: 1400px;
+    padding-inline: 2rem;
+  }
+  .skill-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-top: 3rem;
   }
   @media (max-width: 768px) {
     .skills-container {
       max-width: 100%;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
+      padding-inline: 1rem;
     }
   }
   h1 {

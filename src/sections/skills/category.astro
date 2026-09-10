@@ -5,91 +5,284 @@ type Props = {
     title: string;
     url: string;
   }[];
-  small?: boolean;
-  language?: boolean;
+  id: string;
+  title: string;
+  tone: "sand" | "blue" | "rose";
 };
-const { skills, small, language } = Astro.props;
+const { skills, id, title, tone } = Astro.props;
 ---
 
-<div>
-  <h2 class="mb-10 mt-10 text-center"><slot /></h2>
-  <div
-    class="container m-auto flex w-11/12 flex-wrap justify-center gap-x-7 gap-y-9 md:gap-x-16 md:gap-y-16"
-  >
-    {
-      skills.map(({ logo, title, url }) => {
-        return (
-          <a
-            href={url}
-            class={`flex -translate-x-full flex-col items-center gap-2 opacity-0 blur-sm transition-all duration-300 ${
-              small ? "small" : ""
-            } ${language ? "md:w-40" : ""}`}
-            target="_blank"
-          >
-            <img src={logo} alt={`${title} Logo`} class="drop-shadow-xl" />
-            <span>{title}</span>
-          </a>
-        );
-      })
-    }
-  </div>
-</div>
+<section
+  class={`skill-category ${tone}`}
+  data-skill-category
+  data-title={title}
+  aria-labelledby={`${id}-title`}
+>
+  <header class="category-header">
+    <h2 id={`${id}-title`}>
+      {title}<span class="skill-count">{skills.length}</span>
+    </h2>
+    <button
+      type="button"
+      class="expand-button"
+      aria-controls={`${id}-more`}
+      aria-expanded="false"
+      aria-label={`Show all ${skills.length} ${title.toLowerCase()}`}
+      hidden
+    >
+      <span data-expand-label>Show all {skills.length}</span>
+      <span class="chevron" aria-hidden="true"></span>
+    </button>
+  </header>
+  {
+    [skills.slice(0, 6), skills.slice(6)].map((group, index) => (
+      <div class={index === 1 ? "extra-skills" : undefined}
+        id={index === 1 ? `${id}-more` : undefined}
+        data-extra-skills={index === 1 ? "" : undefined}>
+        <div class="skill-group">
+          <ul class="skill-list">
+            {group.map(({ logo, title, url }) => (
+              <li data-skill-item>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  <img src={logo} alt="" width="40" height="40" loading="lazy" />
+                  <span>{title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))
+  }
+  <p class="sr-only" role="status" aria-live="polite" data-skill-status></p>
+</section>
 
 <style>
-  .slide-in {
-    filter: blur(0px);
-    opacity: 1;
-    transform: translateX(0);
+  .skill-category {
+    border: 1px solid var(--edge);
+    --tile-gap: 1rem;
+    border-radius: 22px;
+    padding: 1.5rem 2rem 2rem;
+    background: linear-gradient(130deg, var(--tint), var(--soft));
   }
-  .hover-class:hover {
-    transform: translateY(-10px);
+  .sand {
+    --tint: #f1dfb8;
+    --soft: #f8eedb;
+    --edge: #d8c8a8;
+    --accent: #786944;
+  }
+  .blue {
+    --tint: #d8e7e6;
+    --soft: #edf2e9;
+    --edge: #bfcfca;
+    --accent: #526f6c;
+  }
+  .rose {
+    --tint: #ebd7df;
+    --soft: #f5eae7;
+    --edge: #d4bdc6;
+    --accent: #81616f;
+  }
+  .category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    min-height: 44px;
   }
   h2 {
-    font-size: clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
   }
-  span {
-    font-size: clamp(1rem, 2.5vw, 2.5rem);
+  .skill-count {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: normal;
   }
-  img {
-    width: clamp(3rem, 10vw, 7rem);
+  .expand-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 44px;
+    padding: 0.625rem;
+    border-radius: 8px;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
   }
-  .small img {
-    width: clamp(2rem, 7vw, 5rem);
+  .expand-button:hover {
+    background: #fff5e7;
   }
-  .small span {
-    font-size: clamp(1rem, 2vw, 2rem);
+  .expand-button[hidden] {
+    display: none;
+  }
+  .chevron {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 400ms ease;
+  }
+  .expand-button[aria-expanded="true"] .chevron {
+    transform: translateY(2px) rotate(225deg);
+  }
+  .skill-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--tile-gap);
+  }
+  .extra-skills {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .extra-skills > .skill-group {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .extra-skills .skill-list:not(:empty) {
+    padding-top: var(--tile-gap);
+    padding-bottom: 4px;
+  }
+  .skill-category[data-expanded="false"] .extra-skills {
+    grid-template-rows: 0fr;
+  }
+  .skill-list a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 80px;
+    height: 100%;
+    padding: 1.125rem 1.25rem;
+    border: 1px solid #eee7da;
+    border-radius: 12px;
+    background: #fff9ed;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  .skill-list img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .skill-list a span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .skill-list a:focus-visible,
+  .expand-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .skill-list a {
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+    }
+    .skill-list a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px -7px #756a59;
+    }
+  }
+  @media (max-width: 640px) {
+    .skill-category {
+      --tile-gap: 0.625rem;
+      padding: 1rem 0.875rem 1.25rem;
+    }
+    .category-header {
+      gap: 0.5rem;
+    }
+    h2 {
+      gap: 0.375rem;
+      font-size: 1.25rem;
+    }
+    .skill-count {
+      font-size: 0.875rem;
+    }
+    .expand-button {
+      gap: 0.5rem;
+      padding-inline: 0.25rem;
+      font-size: 0.875rem;
+    }
+    .skill-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .skill-list a {
+      gap: 0.5rem;
+      min-height: 72px;
+      padding: 1rem 0.5rem;
+      font-size: 1rem;
+    }
+    .skill-list img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  @media (max-width: 380px) {
+    .category-header {
+      flex-wrap: wrap;
+    }
+    .skill-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .extra-skills,
+    .chevron {
+      transition: none;
+    }
   }
 </style>
 
 <script>
-  // At most one timeout per category at any given time
-  const categoryContainerObserver = new IntersectionObserver(
-    (categories) => {
-      categories.forEach((category) => {
-        const cards = category.target.children as HTMLCollectionOf<HTMLElement>;
-        const longestDelaySeconds = (cards.length - 1) * 0.05;
+  const initialSkillCount = 6;
+  document
+    .querySelectorAll<HTMLElement>("[data-skill-category]")
+    .forEach((category) => {
+      const items = Array.from(
+        category.querySelectorAll<HTMLLIElement>("[data-skill-item]"),
+      );
+      const button = category.querySelector<HTMLButtonElement>(".expand-button")!;
+      const extra = category.querySelector<HTMLElement>("[data-extra-skills]")!;
+      const label = button.querySelector<HTMLElement>("[data-expand-label]")!;
+      const status = category.querySelector<HTMLElement>("[data-skill-status]")!;
+      const title = category.dataset.title!.toLowerCase();
+      let expanded = false;
 
-        if (category.isIntersecting) {
-          for (let i = 0; i < cards.length; i++) {
-            cards[i].style.transitionDelay = `${i * 0.05}s`;
-            cards[i].classList.add("slide-in");
-          }
-          setTimeout(
-            () => {
-              for (let i = 0; i < cards.length; i++) {
-                cards[i].style.transitionDelay = "0s";
-                cards[i].classList.add("hover-class");
-              }
-            },
-            longestDelaySeconds * 1000 * 2,
-          );
-        }
+      const update = () => {
+        category.dataset.expanded = String(expanded);
+        extra.inert = !expanded;
+        extra.setAttribute("aria-hidden", String(!expanded));
+        button.hidden = items.length <= initialSkillCount;
+        button.setAttribute("aria-expanded", String(expanded));
+        button.setAttribute(
+          "aria-label",
+          expanded ? `Show fewer ${title}` : `Show all ${items.length} ${title}`,
+        );
+        label.textContent = expanded ? "Show fewer" : `Show all ${items.length}`;
+      };
+
+      // Without JavaScript, every skill remains visible and every link works.
+      update();
+      button.addEventListener("click", () => {
+        expanded = !expanded;
+        update();
+        const visibleCount = expanded
+          ? items.length
+          : Math.min(initialSkillCount, items.length);
+        status.textContent = `Showing ${visibleCount} of ${items.length} ${title}.`;
       });
-    },
-    { threshold: 0.25 },
-  );
-  const containers = document.querySelectorAll(".container")!;
-  containers.forEach((container) => {
-    categoryContainerObserver.observe(container);
-  });
+    });
 </script>
