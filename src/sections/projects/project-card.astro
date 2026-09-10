@@ -21,76 +21,85 @@ const {
 } = Astro.props;
 const colorFrom = `hsl(${hue}, 100%, 75%)`;
 const colorTo = `hsl(${hue}, 100%, 95%)`;
+const hoverColorFrom = `hsl(${hue}, 100%, 85%)`;
 ---
 
-<div
-  class={`container px-[5%] pb-[2%] pt-4 opacity-0 blur-sm transition-all duration-700 border-2 border-gray-600 ${
-    mobile ? "mobile-container" : ""
-  } translate-y-44 `}
->
-  <h1 class="title">{title}</h1>
+<div data-project-card class="project-card-shell">
+  <div
+    class={`container px-[5%] pb-[2%] pt-4 opacity-0 blur-sm transition-all duration-700 border-2 border-gray-600 ${
+      mobile ? "mobile-container" : ""
+    } translate-y-44 `}
+  >
+    <h1 class="title">{title}</h1>
 
-  <div class="flex justify-end">
-    <a
-      href={projectUrl}
-      title={`Launch ${title}`}
-      target="_blank"
-      class="duration-700"
-    >
-      <img src="goto.svg" alt="Go-to-link image" srcset="" />
-    </a>
-  </div>
-
-  <div class="description flex items-center">
-    <div set:html={description} />
-  </div>
-
-  <div class="flex items-center">
-    <img src={logo} alt="Project logo" srcset="" class="w-full" />
-  </div>
-
-  <div>
-    <h2 class="built-with-title mb-2">Built with:</h2>
-    <div class="flex gap-5">
-      {
-        techUsed.map((tech) => (
-          <a
-            href={tech.url}
-            title={tech.title}
-            class="w-[15%] transition-transform duration-700 hover:-translate-y-1"
-            target="_blank"
-          >
-            <img
-              src={tech.logo}
-              alt={tech.title}
-              srcset=""
-              class="drop-shadow-xl"
-            />
-          </a>
-        ))
-      }
+    <div class="flex justify-end">
+      <a
+        href={projectUrl}
+        title={`Launch ${title}`}
+        target="_blank"
+        class="duration-700"
+      >
+        <img src="goto.svg" alt="Go-to-link image" srcset="" />
+      </a>
     </div>
-  </div>
 
-  <div class="flex items-end justify-end">
-    <a
-      href={repoUrl}
-      title={`${title} repository`}
-      target="_blank"
-      class="w-[4.5vh] duration-700 hover:-translate-y-1"
-    >
-      <img src="github.svg" alt="GitHub Logo" srcset="" />
-    </a>
+    <div class="description flex items-center">
+      <div set:html={description} />
+    </div>
+
+    <div class="flex items-center">
+      <img src={logo} alt="Project logo" srcset="" class="w-full" />
+    </div>
+
+    <div>
+      <h2 class="built-with-title mb-2">Built with:</h2>
+      <div class="flex gap-5">
+        {
+          techUsed.map((tech) => (
+            <a
+              href={tech.url}
+              title={tech.title}
+              class="w-[15%] transition-transform duration-700 hover:-translate-y-1"
+              target="_blank"
+            >
+              <img
+                src={tech.logo}
+                alt={tech.title}
+                srcset=""
+                class="drop-shadow-xl"
+              />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="flex items-end justify-end">
+      <a
+        href={repoUrl}
+        title={`${title} repository`}
+        target="_blank"
+        class="w-[4.5vh] duration-700 hover:-translate-y-1"
+      >
+        <img src="github.svg" alt="GitHub Logo" srcset="" />
+      </a>
+    </div>
   </div>
 </div>
 
-<style define:vars={{ colorTo, colorFrom }}>
+<style define:vars={{ colorTo, colorFrom, hoverColorFrom }}>
+  .project-card-shell {
+    width: 100%;
+    min-width: 0;
+  }
   .slide-in {
     filter: blur(0px);
     opacity: 1;
-    transform: translateX(0);
+    transform: perspective(1000px) translate3d(0, 0, 0);
   }
   .container {
+    position: relative;
+    isolation: isolate;
     border-radius: 0.4375rem;
     display: grid;
     grid-template-columns: 60% 1fr;
@@ -102,8 +111,30 @@ const colorTo = `hsl(${hue}, 100%, 95%)`;
       var(--colorTo) 70%
     );
   }
-  .container:hover {
-    transform: translateY(-2px);
+  .container::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    content: "";
+    background: radial-gradient(
+      circle farthest-corner at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      var(--hoverColorFrom),
+      var(--colorTo) 350%
+    );
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .project-card-shell[data-pointer-active] .container::before {
+      opacity: 1;
+    }
+    .project-card-shell[data-pointer-active] .container.slide-in {
+      transform: perspective(1000px) translate3d(0, -3px, 15px);
+      box-shadow: 0 12px 24px -14px rgb(0 0 0 / 30%);
+      transition-duration: 180ms;
+    }
   }
   .mobile-container {
     column-gap: 1rem;
@@ -128,8 +159,31 @@ const colorTo = `hsl(${hue}, 100%, 95%)`;
       }
     });
   });
-  const projectCards = document.querySelectorAll(".container");
+  const projectCards = document.querySelectorAll<HTMLElement>(
+    "[data-project-card]",
+  );
+  const pointerMotion = window.matchMedia(
+    "(hover: hover) and (prefers-reduced-motion: no-preference)",
+  );
   projectCards.forEach((projectCard) => {
-    projectCardObserver.observe(projectCard);
+    projectCardObserver.observe(projectCard.querySelector(".container")!);
+    projectCard.addEventListener("pointermove", (event) => {
+      if (!pointerMotion.matches || event.pointerType === "touch") return;
+
+      const bounds = projectCard.getBoundingClientRect();
+      projectCard.style.setProperty(
+        "--pointer-x",
+        `${event.clientX - bounds.left}px`,
+      );
+      projectCard.style.setProperty(
+        "--pointer-y",
+        `${event.clientY - bounds.top}px`,
+      );
+      projectCard.setAttribute("data-pointer-active", "");
+    });
+    const resetCard = () => projectCard.removeAttribute("data-pointer-active");
+    projectCard.addEventListener("pointerleave", resetCard);
+    projectCard.addEventListener("pointercancel", resetCard);
+    pointerMotion.addEventListener("change", resetCard);
   });
 </script>

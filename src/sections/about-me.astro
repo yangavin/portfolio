@@ -45,6 +45,20 @@ const content = await contentfulClient.getEntry<paragraphs>(
   .clamp-text {
     font-size: clamp(1rem, 2.5vw, 1.7rem);
   }
+  .clamp-text :global(ul),
+  .clamp-text :global(ol) {
+    padding-inline-start: 1.5em;
+    list-style-position: outside;
+  }
+  .clamp-text :global(ul) {
+    list-style-type: disc;
+  }
+  .clamp-text :global(ol) {
+    list-style-type: decimal;
+  }
+  .clamp-text :global(li + li) {
+    margin-top: 0.5em;
+  }
   .red-ellipse,
   .yellow-cylinder {
     transform-origin: 0 -50%;
