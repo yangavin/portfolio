@@ -27,16 +27,20 @@ function JokeOverlay() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [punchlineIndex, setPunchlineIndex] = useState(0);
   const [punchlineStart, setPunchlineStart] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   const questionDone = question !== "" && questionIndex === question.length;
   const jokeDone = punchline !== "" && punchlineIndex === punchline.length;
 
   const overlay = useRef<HTMLDivElement>(null);
   const controller = useRef(new AbortController());
+  const closing = useRef(false);
 
   useEffect(() => {
     const body = document.querySelector("body")!;
     body.style.overflowY = "hidden";
+    const hero = document.querySelector<HTMLElement>("[data-orbit-hero]");
+    if (hero) hero.dataset.entrance = "pending";
   }, []);
 
   function setFallbackJoke() {
@@ -69,24 +73,29 @@ function JokeOverlay() {
     };
   }, []);
 
-  function fadeOutOverlay() {
-    overlay.current?.classList.add("animate-slide-out");
-    const body = document.querySelector("body")!;
-    body.style.overflowY = "auto";
-    const blueBox = document.querySelector(".blue-box")!;
-    blueBox.classList.add("rotate");
-    const titles = document.querySelectorAll(".title")!;
-    titles.forEach((title) => title.classList.add("slide-in"));
-    const bar = document.querySelector(".bar")!;
-    bar.classList.add("grow");
-  }
+  const finishDismissal = useCallback(() => {
+    document.body.style.overflowY = "auto";
+    setDismissed(true);
+  }, []);
+
+  const fadeOutOverlay = useCallback(() => {
+    if (closing.current) return;
+    closing.current = true;
+    const hero = document.querySelector<HTMLElement>("[data-orbit-hero]");
+    if (hero) hero.dataset.entrance = "revealed";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finishDismissal();
+    } else {
+      overlay.current?.classList.add("animate-slide-out");
+    }
+  }, [finishDismissal]);
 
   useEffect(() => {
     if (jokeDone) {
       const fadeoutTimer = setTimeout(fadeOutOverlay, 2000);
       return () => clearTimeout(fadeoutTimer);
     }
-  }, [jokeDone]);
+  }, [jokeDone, fadeOutOverlay]);
 
   useEffect(() => {
     if (questionDone) {
@@ -97,6 +106,7 @@ function JokeOverlay() {
 
   const handleOverlaySkip = useCallback(
     function handleOverlaySkip() {
+      if (closing.current) return;
       if (!question) {
         controller.current.abort();
       }
@@ -113,7 +123,7 @@ function JokeOverlay() {
         fadeOutOverlay();
       }
     },
-    [question, questionDone, jokeDone, punchlineStart],
+    [question, questionDone, jokeDone, punchlineStart, fadeOutOverlay],
   );
 
   useEffect(() => {
@@ -124,11 +134,21 @@ function JokeOverlay() {
     return () => document.removeEventListener("keydown", spacePressedHandler);
   }, [handleOverlaySkip]);
 
+  if (dismissed) return null;
+
   if (question && punchline) {
     return (
       <div
         onClick={handleOverlaySkip}
         ref={overlay}
+        onAnimationEnd={(event) => {
+          if (
+            event.target === event.currentTarget &&
+            event.animationName === "slideOut"
+          ) {
+            finishDismissal();
+          }
+        }}
         className="fixed z-50 flex h-full w-full select-none flex-col items-center justify-center gap-10 bg-orange-100 lg:gap-20"
       >
         <JokeQuestion
