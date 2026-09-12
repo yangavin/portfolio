@@ -74,13 +74,13 @@ function JokeOverlay() {
   }, []);
 
   const finishDismissal = useCallback(() => {
-    document.body.style.overflowY = "auto";
     setDismissed(true);
   }, []);
 
   const fadeOutOverlay = useCallback(() => {
     if (closing.current) return;
     closing.current = true;
+    document.body.style.overflowY = "auto";
     const hero = document.querySelector<HTMLElement>("[data-orbit-hero]");
     if (hero) hero.dataset.entrance = "revealed";
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
